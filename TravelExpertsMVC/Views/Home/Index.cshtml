@@ -1,8 +1,32 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
+    ViewData["Title"] = "Travel Experts";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/header.css" />
+    <script src="~/js/header.js"></script>
+    <script src="~/js/script.js"></script>
+    <link rel="stylesheet" href="~/css/home.css" />
+</head>
+<body style="overflow-x: auto">
+    <header class="page-header"></header>
+    <section>
+        <div class="landing-section">
+            <img class="landing-img" src="~/images/mountain.jpg" alt="mountain" />
+            <section class="landing-content">
+                <div class="offer-text"><b>GET UPTO 40% OFF</b> on your travel plans</div>
+                <button class="btn btn-outline-primary btn-lg landing-btn" onclick="location.href = '@Url.Action("Register", "Account")'">Join US</button>
+            </section>
+        </div>
+    </section>
+    <h1 class="gallery-head">Places You Should Have an Eye on</h1>
+    <section class="gallery" id="gallery">
+    </section>
+</body>
+</html>
+
