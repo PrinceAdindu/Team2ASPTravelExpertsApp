@@ -1,0 +1,28 @@
+﻿input {
+    border-right: none !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-radius: 1px !important;
+    border-color: var(--bs-blue);
+}
+
+.form-control:focus {
+    box-shadow: 0 3px 0 0px rgba(50, 93, 136, .5) !important;
+}
+
+.validation-list {
+    display: none; /* Hidden by default */
+}
+
+    .validation-list li {
+        list-style-type: none;
+        font-size: 0.9rem;
+    }
+
+    .validation-list .valid {
+        color: green;
+    }
+
+    .validation-list .invalid {
+        color: red;
+    }
