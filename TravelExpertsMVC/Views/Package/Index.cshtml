@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Packages";
+}
+
+<html lang="en">
+
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/header.css" />
+    <link rel="stylesheet" href="~/css/packages.css" />
+    <script defer src="~/js/packages.js"></script>
+    <script defer src="~/js/header.js"></script>
+    <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <header class="page-header"></header>
+    <section>
+        <div class="container mt-5">
+            <div class="travel-image">
+                <img src="~/images/travel.jpg" alt="travel package logo" id="travelimg" />
+            </div>
+            <h1 class="text-center mb-4">Travel Packages</h1>
+            <div class="row" id="package-container">
+            </div>
+        </div>
+    </section>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card">
+                <img src="~/images/asianexepedition.jpg" class="card-img-top" alt="Asian Expedition photo">
+                <div class="card-body">
+                    <h5 class="card-title">Asian Expedition</h5>
+                    <p class="card-text">Airfaire, Hotel and Eco Tour.</p>
+                    <p class="card-text">Price: $2800.00</p>
+                    <p class="card-text">Start Date: 14/05/2025</p>
+                    <p class="card-text">Start Date: 28/05/2025</p>
+                    <a href="#" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="~/images/caribbeannewyear.jpg" class="card-img-top" alt="Caribbean New Year Photo">
+                <div class="card-body">
+                    <h5 class="card-title">Caribbean New Year</h5>
+                    <p class="card-text">Cruise the Caribbean & Celebrate the New Year.</p>
+                    <p class="card-text">Price: $4800.00</p>
+                    <p class="card-text">Start Date: 25/12/2024</p>
+                    <p class="card-text">Start Date: 04/01/2025</p>
+                    <a href="#" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="~/images/europeanvacation.jpg" class="card-img-top" alt="European Vacation photo">
+                <div class="card-body">
+                    <h5 class="card-title">European Vacation</h5>
+                    <p class="card-text">Euro Tour with Rail Pass and Travel Insurance.</p>
+                    <p class="card-text">Price: $3000.00</p>
+                    <p class="card-text">Start Date: 01/11/2024</p>
+                    <p class="card-text">Start Date: 14/11/2024</p>
+                    <a href="#" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="~/images/polynesian.jpg" class="card-img-top" alt="Polynesian Paradise photo">
+                <div class="card-body">
+                    <h5 class="card-title">Polynesian Paradise</h5>
+                    <p class="card-text">8 Day All Inclusive Hawaiian Vacation.</p>
+                    <p class="card-text">Price: $3000.00</p>
+                    <p class="card-text">Start Date: 12/12/2024</p>
+                    <p class="card-text">Start Date: 20/12/2024</p>
+                    <a href="#" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
