@@ -1,23 +1,50 @@
-﻿@model IEnumerable<dynamic>
+﻿@model IEnumerable<TravelExpertsData.AgentAgencyDTO>
 
-@{
-    ViewData["Title"] = "Register";
-}
+<!DOCTYPE html>
+<html>
 <head>
-    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+    <meta charset="utf-8" />
+    <title>Contact List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
-<h1>Register</h1>
-
-@foreach (var agency in Model)
-{
-    <tr>
-        <td>@agency.AgncyProv</td>
-        <td>@agency.AgncyCity</td>
-        <td>@agency.AgncyAddress</td>
-        <td>@agency.AgencyId</td>
-        <td>@agency.AgncyPhone</td>
-    </tr>
-}
-
-
+<body>
+    <div class="container">
+        <h2>Contact List</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Position</th>
+                    <th>Business Phone</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Province</th>
+                    <th>Postal Code</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var agent in Model)
+                {
+                    <tr>
+                        <td>@agent.AgtFirstName</td>
+                        <td>@agent.AgtLastName</td>
+                        <td>@agent.AgtPosition</td>
+                        <td>@agent.AgtBusPhone</td>
+                        <td>@agent.AgtEmail</td>
+                        <td>@agent.AgncyAddress</td>
+                        <td>@agent.AgncyCity</td>
+                        <td>@agent.AgncyProv</td>
+                        <td>@agent.AgncyPostal</td>
+                        <td>@agent.AgncyCountry</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
