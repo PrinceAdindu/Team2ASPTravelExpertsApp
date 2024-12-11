@@ -10,11 +10,8 @@ namespace TravelExpertsData
 {
     public class User : IdentityUser
     {
-        public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
-
-        [Required]
-        public int Id {  get; set; }
+        public int? CustomerId { get; set; }
+        public Customer? Customer { get; set; }
         public string FullName { get; set; }
     }
 }

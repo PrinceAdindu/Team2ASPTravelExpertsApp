@@ -12,8 +12,8 @@ using TravelExpertsData;
 namespace TravelExpertsData.Migrations
 {
     [DbContext(typeof(TravelExpertsContext))]
-    [Migration("20241207184330_identity")]
-    partial class identity
+    [Migration("20241211034926_Identity-customer-nullable")]
+    partial class Identitycustomernullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -467,7 +467,6 @@ namespace TravelExpertsData.Migrations
                         .HasColumnType("nvarchar(75)");
 
                     b.Property<string>("CustBusPhone")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -491,6 +490,7 @@ namespace TravelExpertsData.Migrations
                         .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("CustHomePhone")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -658,7 +658,7 @@ namespace TravelExpertsData.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("PackageProductSupplierId")
-                        .HasName("PK__Packages__53E8ED996BD6E923");
+                        .HasName("PK__Packages__53E8ED998C8C486A");
 
                     b.HasIndex(new[] { "PackageId" }, "PackagesPackages_Products_Suppliers");
 
@@ -666,7 +666,7 @@ namespace TravelExpertsData.Migrations
 
                     b.HasIndex(new[] { "ProductSupplierId" }, "Products_SuppliersPackages_Products_Suppliers");
 
-                    b.HasIndex(new[] { "PackageId", "ProductSupplierId" }, "UQ__Packages__29CA8E95DE3A2E28")
+                    b.HasIndex(new[] { "PackageId", "ProductSupplierId" }, "UQ__Packages__29CA8E95EB6A122E")
                         .IsUnique();
 
                     b.ToTable("Packages_Products_Suppliers");
@@ -899,7 +899,7 @@ namespace TravelExpertsData.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -1181,9 +1181,7 @@ namespace TravelExpertsData.Migrations
                 {
                     b.HasOne("TravelExpertsData.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.Navigation("Customer");
                 });

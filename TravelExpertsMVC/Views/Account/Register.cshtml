@@ -7,159 +7,197 @@
     <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
 </head>
 
-<h1>Register</h1>
+<div class="container">
+    <h1>Register</h1>
 
-<hr />
-<div class="row">
-    <div class="col-md-12">
-        <form asp-action="Register">
-            <div class="accordion" id="userDetails">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Personal Details
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#userDetails">
-                        <div class="accordion-body d-flex flex-row flex-wrap gap-3 justify-content-center">
-                            <div asp-validation-summary="ModelOnly" class="text-danger w-100"></div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Register">
+                <div class="accordion" id="userDetails">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Personal Details
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#userDetails">
+                            <div class="accordion-body d-flex flex-row flex-wrap gap-3 justify-content-center">
+                                <div asp-validation-summary="ModelOnly" class="text-danger w-100"></div>
 
-                            <div class="form-group row col-lg-6 p-3">
-                                <label asp-for="CustFirstName" class="col-form-label px-0"></label>
-                                <input autofocus asp-for="CustFirstName" class="form-control" />
-                                <span asp-validation-for="CustFirstName" class="text-danger"></span>
+                                <div class="form-group row col-lg-6 p-3">
+                                    <label asp-for="CustFirstName" class="col-form-label px-0"></label>
+                                    <input autofocus asp-for="CustFirstName" class="form-control" />
+                                    <span asp-validation-for="CustFirstName" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group row col-lg-6 p-3">
+                                    <label asp-for="CustLastName" class="col-form-label"></label>
+                                    <input asp-for="CustLastName" class="form-control" />
+                                    <span asp-validation-for="CustLastName" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group row col-md-11 p-3">
+                                    <label asp-for="CustAddress" class="col-form-label"></label>
+                                    <input asp-for="CustAddress" class="form-control" />
+                                    <span asp-validation-for="CustAddress" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group row col-md-6 p-3">
+                                    <label asp-for="CustCity" class="col-form-label"></label>
+                                    <input asp-for="CustCity" class="form-control" />
+                                    <span asp-validation-for="CustCity" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group row col-md-6 p-3">
+                                    <label asp-for="CustProv" class="col-form-label"></label>
+                                    <select asp-for="CustProv" class="form-select">
+                                    </select>
+                                    <span asp-validation-for="CustProv" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group row col-md-6 p-3">
+                                    <label asp-for="CustPostal" class="col-form-label"></label>
+                                    <input asp-for="CustPostal" class="form-control" />
+                                    <span asp-validation-for="CustPostal" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group row col-md-6 p-3">
+                                    <label asp-for="CustCountry" class="col-form-label"></label>
+                                    <select asp-for="CustCountry" class="form-select">
+                                        <option selected>Canada</option>
+                                        <option>US</option>
+                                    </select>
+                                    <span asp-validation-for="CustCountry" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group row col-md-4 p-3">
+                                    <button class="btn btn-primary disabled">Move to Contact Details</button>
+                                </div>
                             </div>
+                        </div>
+                    </div> 
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed btn btn-secondary disabled" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Contact Details
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#userDetails" style="">
+                            <div class="accordion-body d-flex flex-row flex-wrap gap-3 row-gap-lg-5 justify-content-center">
+                                <div asp-validation-summary="ModelOnly" class="text-danger w-100"></div>
 
-                            <div class="form-group row col-lg-6 p-3">
-                                <label asp-for="CustLastName" class="col-form-label"></label>
-                                <input asp-for="CustLastName" class="form-control" />
-                                <span asp-validation-for="CustLastName" class="text-danger"></span>
-                            </div>
+                                <div class="form-group row col-lg-6 p-3">
+                                    <label asp-for="CustHomePhone" class="col-form-label"></label>
+                                    <input asp-for="CustHomePhone" class="form-control" />
+                                    <span asp-validation-for="CustHomePhone" class="text-danger"></span>
+                                </div>
 
-                            <div class="form-group row col-md-11 p-3">
-                                <label asp-for="CustAddress" class="col-form-label"></label>
-                                <input asp-for="CustAddress" class="form-control" />
-                                <span asp-validation-for="CustAddress" class="text-danger"></span>
-                            </div>
+                                <div class="form-group row col-lg-6 p-3">
+                                    <label asp-for="CustBusPhone" class="col-form-label"></label>
+                                    <input asp-for="CustBusPhone" class="form-control" />
+                                    <span asp-validation-for="CustBusPhone" class="text-danger"></span>
+                                </div>
 
-                            <div class="form-group row col-md-6 p-3">
-                                <label asp-for="CustCity" class="col-form-label"></label>
-                                <input asp-for="CustCity" class="form-control" />
-                                <span asp-validation-for="CustCity" class="text-danger"></span>
-                            </div>
+                                <div class="form-group row col-md-6 p-3">
+                                    <label asp-for="CustEmail" class="col-form-label"></label>
+                                    <input asp-for="CustEmail" class="form-control" />
+                                    <span asp-validation-for="CustEmail" class="text-danger"></span>
+                                </div>
 
-                            <div class="form-group row col-md-6 p-3">
-                                <label asp-for="CustProv" class="col-form-label"></label>                           
-                                <select asp-for="CustProv" class="form-select">
-                                </select>
-                                <span asp-validation-for="CustProv" class="text-danger"></span>                                  
-                            </div>
+                                <div class="form-group row col-md-6 p-3">
+                                    <label asp-for="AgentId" class="col-form-label">Select your Agent (optional)</label>
+                                    <se@* lect asp-items="@(new SelectList(Model?.Agents, "AgentId", "AgentFirstName", "AgentLastName"))" asp-for="AgentId" class="form-control" asp-items="ViewBag.AgentId">
+                                          <option value=""></option>
+                                          </selec *@t>
+                                        <select><option>1</option><option>2</option></select>
+                                </div>
 
-                            <div class="form-group row col-md-6 p-3">
-                                <label asp-for="CustPostal" class="col-form-label"></label>                           
-                                <input asp-for="CustPostal" class="form-control" />
-                                <span asp-validation-for="CustPostal" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-group row col-md-6 p-3">
-                                <label asp-for="CustCountry" class="col-form-label"></label>
-                                <select asp-for="CustCountry" class="form-select">
-                                    <option selected>Canada</option>
-                                    <option>US</option>
-                                </select>
-                                <span asp-validation-for="CustCountry" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-group row col-md-4 p-3">
-                                <button class="btn btn-primary disabled">Move to Contact Details</button>
+                                <div class="form-group row col-md-4 p-3">
+                                    <button class="d-none btn btn-primary">Let's set your Password</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed btn btn-secondary disabled" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Contact Details
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#userDetails" style="">
-                        <div class="accordion-body d-flex flex-row flex-wrap gap-3 row-gap-lg-5 justify-content-center">
-                            <div asp-validation-summary="ModelOnly" class="text-danger w-100"></div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button btn btn-secondary disabled collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
+                                Contact Details
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#userDetails" style="">
+                            <div class="accordion-body d-flex flex-row flex-wrap gap-3 justify-content-center">
+                                <div asp-validation-summary="ModelOnly" class="text-danger w-100"></div>
 
-                            <div class="form-group row col-lg-6 p-3">
-                                <label asp-for="CustHomePhone" class="col-form-label"></label>
-                                <input asp-for="CustHomePhone" class="form-control" />
-                                <span asp-validation-for="CustHomePhone" class="text-danger"></span>
-                            </div>
+                                <div class="form-group row col-lg-6 p-3 position-relative">
+                                    <label asp-for="Password" class="col-form-label"></label>
+                                    <input asp-for="Password" type="password" class="form-control" />
+                                    <i class="fa fa-eye position-absolute w-auto" style="right: 20px !important; top: 65px !important;"></i>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
 
-                            <div class="form-group row col-lg-6 p-3">
-                                <label asp-for="CustBusPhone" class="col-form-label"></label>
-                                <input asp-for="CustBusPhone" class="form-control" />
-                                <span asp-validation-for="CustBusPhone" class="text-danger"></span>
-                            </div>
+                                <div class="form-group row col-lg-6 p-3 position-relative">
+                                    <label asp-for="ConfirmPassword" class="col-form-label"></label>
+                                    <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                                    <i class="fa fa-eye position-absolute w-auto" style="right: 20px !important; top: 65px !important;"></i>
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
 
-                            <div class="form-group row col-md-6 p-3">
-                                <label asp-for="CustEmail" class="col-form-label"></label>
-                                <input asp-for="CustEmail" class="form-control" />
-                                <span asp-validation-for="CustEmail" class="text-danger"></span>
-                            </div>
+                                <div class="form-group row col-lg-6 px-3">
+                                    <ul id="validation-list" class="validation-list">
+                                        <li id="lowercase" class="invalid">
+                                            <i class="fas fa-times"></i> At least one lowercase letter
+                                        </li>
+                                        <li id="uppercase" class="invalid">
+                                            <i class="fas fa-times"></i> At least one uppercase letter
+                                        </li>
+                                        <li id="number" class="invalid">
+                                            <i class="fas fa-times"></i> At least one number
+                                        </li>
+                                        <li id="special" class="invalid">
+                                            <i class="fas fa-times"></i> At least one special character
+                                        </li>
+                                        <li id="length" class="invalid">
+                                            <i class="fas fa-times"></i> 8 - 16 characters
+                                        </li>
+                                    </ul>
+                                </div>
 
-                            <div class="form-group row col-md-6 p-3">
-                                <label asp-for="AgentId" class="col-form-label"></label>
-                                <select asp-for="AgentId" class="form-control" asp-items="ViewBag.AgentId"></select>
+                                <div class="form-group row col-lg-6 px-3">
+                                    <span id="success-messages" class="text-danger"></span>
+                                </div>
+
                             </div>
                         </div>
                     </div>
+
                 </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Contact Details
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#userDetails" style="">
-                        <div class="accordion-body d-flex flex-row flex-wrap gap-3 row-gap-lg-5 justify-content-center">
-                            <div asp-validation-summary="ModelOnly" class="text-danger w-100"></div>
+                
+                <div class="form-group mt-3 mx-auto disabled">
+                    <button id="moveToProfileBtn" class="btn btn-primary">Just a step away from endless adventure<i class="fa fa-globe w-auto"></i></button>
+                </div>
 
-                            <div class="form-group row col-lg-6 p-3">
-                                <label asp-for="Password" class="col-form-label"></label>
-                                <input asp-for="Password" class="form-control" />
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-group row col-lg-6 p-3">
-                                <label asp-for="ConfirmPassword" class="col-form-label"></label>
-                                <input asp-for="ConfirmPassword" class="form-control" />
-                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                            </div>
-
-                            <ul id="validation-list" class="validation-list mt-4 col-lg-6">
-                                <li id="lowercase" class="invalid">
-                                    <i class="fas fa-times"></i> At least one lowercase letter
-                                </li>
-                                <li id="uppercase" class="invalid">
-                                    <i class="fas fa-times"></i> At least one uppercase letter
-                                </li>
-                                <li id="number" class="invalid">
-                                    <i class="fas fa-times"></i> At least one number
-                                </li>
-                                <li id="special" class="invalid">
-                                    <i class="fas fa-times"></i> At least one special character
-                                </li>
-                                <li id="length" class="invalid">
-                                    <i class="fas fa-times"></i> 8 - 16 characters
-                                </li>
-                            </ul>
-                        </div>
+                <div id="imageUploadSection" class="d-none text-center mt-5 fade-in">
+                    <div class="image-upload-box">
+                        <label asp-for="ProfileImage">
+                            <img id="uploadedImage" src="~/images/default-avatar.jpg" alt="Profile Image" />
+                            <input asp-for="ProfileImage" type="file" accept="image/*" class="d-none" />
+                        </label>
+                        <span asp-validation-for="ProfileImage" class="text-danger"></span>
                     </div>
+                    
+                    <input id="usernameInput" type="text" class="form-control mt-3" placeholder="Enter your username" />
                 </div>
-
-            </div>
-            <div class="form-group mt-3 mx-auto">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group mt-3 mx-auto">
+                     <button id="sbmtBtn" type="submit" value="Create" class="d-none btn btn-primary">Get. Set. Fly <i class="fa fa-paper-plane w-auto"></i></button>
+                 </div>
+            </form>
+        </div>
     </div>
+</div>
+
+<div id="loader" class="loader">
+    <div class="spinner"></div>
 </div>
 
 <script src="~/js/register.js"></script>

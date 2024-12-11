@@ -26,3 +26,88 @@
     .validation-list .invalid {
         color: red;
     }
+
+.image-upload-box {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+}
+
+    .image-upload-box label {
+        height: inherit;
+        width: inherit;
+        cursor: pointer;
+    }
+
+    .image-upload-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+#usernameInput {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Loader Styles */
+.loader {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.9);
+/*    display: flex;*/
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner {
+    border: 5px solid #f3f3f3; /* Light gray */
+    border-top: 5px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Hidden Content Before Transition */
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* Fade-In Animation */
+.fade-in {
+    animation: fade-in-up 1s ease-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

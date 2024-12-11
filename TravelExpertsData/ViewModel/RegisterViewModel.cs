@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -46,23 +47,22 @@ namespace TravelExpertsData.ViewModel
         public string? CustCountry { get; set; }
 
         [StringLength(20)]
-        [Required]
         [Display(Name = "Home Phone")]
-        public string? CustHomePhone { get; set; }
+        [Required]
+        public string CustHomePhone { get; set; }
 
         [StringLength(20)]
-        [Required]
         [Display(Name = "Business Phone")]
-        public string CustBusPhone { get; set; } = null!;
+        public string? CustBusPhone { get; set; } = null!;
 
         [StringLength(50)]
         [Required]
         [Display(Name = "Email")]
         public string CustEmail { get; set; } = null!;
 
-        [Required]
-        [Display(Name = "Agent")]
         public int? AgentId { get; set; }
+
+        public List<Agent>? Agents { get; set; }
 
         [StringLength(26)]
         [Required]
@@ -73,5 +73,8 @@ namespace TravelExpertsData.ViewModel
         [Required]
         [Display(Name = "Confirm Pasword")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Profile Image")]
+        public IFormFile? ProfileImage { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelExpertsData;
 
@@ -11,9 +12,11 @@ using TravelExpertsData;
 namespace TravelExpertsData.Migrations
 {
     [DbContext(typeof(TravelExpertsContext))]
-    partial class TravelExpertsContextModelSnapshot : ModelSnapshot
+    [Migration("20241211034301_Identity-nullable")]
+    partial class Identitynullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -458,15 +461,13 @@ namespace TravelExpertsData.Migrations
                     b.Property<int?>("AgentId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("CustAddress")
                         .IsRequired()
                         .HasMaxLength(75)
                         .HasColumnType("nvarchar(75)");
 
                     b.Property<string>("CustBusPhone")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -490,7 +491,6 @@ namespace TravelExpertsData.Migrations
                         .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("CustHomePhone")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -508,9 +508,6 @@ namespace TravelExpertsData.Migrations
                         .IsRequired()
                         .HasMaxLength(2)
                         .HasColumnType("nvarchar(2)");
-
-                    b.Property<byte[]>("ProfileImage")
-                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("CustomerId")
                         .HasName("aaaaaCustomers_PK");
