@@ -1,0 +1,23 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = "Register";
+}
+<head>
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+</head>
+
+<h1>Register</h1>
+
+@foreach (var agency in Model)
+{
+    <tr>
+        <td>@agency.AgncyProv</td>
+        <td>@agency.AgncyCity</td>
+        <td>@agency.AgncyAddress</td>
+        <td>@agency.AgencyId</td>
+        <td>@agency.AgncyPhone</td>
+    </tr>
+}
+
+
