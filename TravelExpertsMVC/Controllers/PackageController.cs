@@ -2,7 +2,7 @@
 
 namespace TravelExpertsMVC.Controllers
 {
-    public class PackagesController : Controller
+    public class PackageController : Controller
     {
         public IActionResult Index()
         {
