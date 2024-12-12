@@ -8,18 +8,6 @@ namespace TravelExpertsMVC.Controllers
 {
     public class CustomerController : Controller
     {
-        /*
-         * Instructions on how to merge my branch with the rest of the app
-         * 
-         * This Index method below should be removed.
-         * The methods for Details, EditCustomer and OrderHistory
-         * all require an id. This should be the customerId of  the customer who is logged in
-         * Once this value has been provided the controllers and views should all function properly
-         * and the Index method can be removed/commented out
-         * 
-         * Kazi
-         */
-        // GET: CustomerController
         public ActionResult AddBalance()
         {
             Customer customer = CustomerManager.GetCustomerByID(104);
@@ -31,6 +19,7 @@ namespace TravelExpertsMVC.Controllers
             List<CreditCard> creditCards = CreditCardManager.GetCreditCardsByCustomer(id);
             if (creditCards != null)
             {
+                var list = new SelectList(creditCards, "CreditCardId", "Ccnumber").ToList();
             List<Customer> customers = new List<Customer>();
             customers = CustomerManager.GetCustomers();
             return View(customers);
@@ -41,9 +30,16 @@ namespace TravelExpertsMVC.Controllers
             else
             {
                 var list = new SelectList("").ToList();
+                TempData["NoCards"] = "You do not have any saved credit cards, please add a card before continuing.";
                 ViewBag.Cards = list;
             }
 
+            CustomerDTO customerAddBalance = new CustomerDTO()
+            {
+                CurrentBalance = customer.Balance,
+                AddToBalance = 0,
+                CustCard = ""
+            };
             return View(customer);
         }
 
@@ -56,6 +52,7 @@ namespace TravelExpertsMVC.Controllers
             return View();
         }
 
+            return View(customerAddBalance);
         public ActionResult EditCustomer(int id) /* <----this id should be replaced with customerid from session*/
         // GET: CustomerController/Create
         public ActionResult Create()
@@ -65,12 +62,16 @@ namespace TravelExpertsMVC.Controllers
             return View();
         }
 
-        // POST: CustomerController/Create
         [HttpPost]
+        public ActionResult AddBalance(CustomerDTO customerAddBalance)
         public ActionResult EditCustomer(int id, Customer customer) /* <----this id should be replaced with customerid from session*/
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
+            Customer customer = CustomerManager.GetCustomerByID(104);
+            List<CreditCard> creditCards = CreditCardManager.GetCreditCardsByCustomer(customer.CustomerId);
+            var list = new SelectList(creditCards, "CreditCardId", "Ccnumber").ToList();
+            ViewBag.Cards = list;
             if (ModelState.IsValid)
             try
             {
@@ -87,6 +88,10 @@ namespace TravelExpertsMVC.Controllers
             }
         }
 
+            if (ModelState.IsValid)
+            {
+                decimal updatedBalance = customerAddBalance.CurrentBalance + customerAddBalance.AddToBalance;
+                CustomerManager.UpdateBalance(customer.CustomerId, updatedBalance);
         // GET: CustomerController/Edit/5
         public ActionResult Edit(int id)
         {
@@ -118,18 +123,11 @@ namespace TravelExpertsMVC.Controllers
             return View();
         }
 
-        // POST: CustomerController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Package");
             }
-            catch
+            else
             {
-                return View();
+                return View(customerAddBalance);
             }
         }
     }
