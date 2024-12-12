@@ -1,0 +1,47 @@
+﻿@model TravelExpertsData.CreditCard
+@{
+    ViewData["Title"] = "Add a Credit Card";
+}
+
+<div>
+    <h1 class="text-center">Add a Credit Card</h1>
+    <form asp-action="AddCard" method="post">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <label asp-for="Ccname" class="control-label"></label>
+                <select asp-for="Ccname" class="form-control" asp-items="ViewBag.CardTypes"></select>
+                <span asp-validation-for="Ccname" class="text-danger"></span>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <label asp-for="Ccnumber" class="control-label"></label>
+                <input asp-for="Ccnumber" class="form-control" />
+                <span asp-validation-for="Ccnumber" class="text-danger"></span>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <label asp-for="Ccexpiry" class="control-label"></label>
+                <input asp-for="Ccexpiry" value="@DateTime.Now" type="month" class="form-control" />
+                <span asp-validation-for="Ccexpiry" class="text-danger"></span>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div>
+            <input asp-for="CustomerId" value="@ViewBag.CustomerID" class="form-control" hidden/>
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center">
+                <input type="submit" value="Add Card" class="btn btn-primary" />
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </form>
+</div>

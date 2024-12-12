@@ -10,25 +10,44 @@ namespace TravelExpertsMVC.Controllers
         // GET: CreditCardController
         public ActionResult AddCard()
         {
-            List<string> cardTypes = new()
-            {
-                "AMEX",
-                "Diners",
-                "MC",
-                "VISA"
-            };
-            var list = new SelectList(cardTypes);
+            SelectList list = CreateCardTypeList();
             ViewBag.CardTypes = list;
+
+            Customer customer = CustomerManager.GetCustomerByID(104);
+            ViewBag.CustomerID = customer.CustomerId;
 
             CreditCard newCard = new CreditCard();
             return View(newCard);
         }
 
-        // GET: CreditCardController/Details/5
         [HttpPost]
         public ActionResult AddCard(CreditCard newCard)
         {
-            return View();
+            SelectList list = CreateCardTypeList();
+            ViewBag.CardTypes = list;
+
+            if (ModelState.IsValid)
+            {
+                CreditCardManager.AddCreditCard(newCard);
+                return RedirectToAction("AddBalance", "Customer");
+            }
+            else
+            {
+                return View(newCard);
+            }
+        }
+
+        private static SelectList CreateCardTypeList()
+        {
+            List<KeyValuePair<string, string>> cardTypes = new()
+            {
+                new KeyValuePair<string, string>("American Express", "AMEX"),
+                new KeyValuePair<string, string>("Diner's Club", "Diner's"),
+                new KeyValuePair<string, string>("Mastercard", "MC"),
+                new KeyValuePair<string, string>("VISA", "VISA")
+            };
+            var list = new SelectList(cardTypes, "Value", "Key");
+            return list;
         }
     }
 }
