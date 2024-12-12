@@ -1,0 +1,43 @@
+﻿@model TravelExpertsData.Package
+
+@{
+    ViewData["Title"] = "Payment";
+}
+
+<h1>Payment</h1>
+
+<div>
+    <h4>Package</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PkgName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PkgName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PkgDesc)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PkgDesc)
+        </dd>
+        <dt class = "col-sm-2">
+            Total
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.PaymentTotal
+        </dd>
+        <dt class="col-sm-2">
+            Your Balance
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.Balance
+        </dd>
+        <form asp-action="Payment" method="post">
+            <input type="submit" value="Confirm Payment" class="btn btn-primary" />
+        </form>
+    </dl>
+</div>
+<div>
+</div>

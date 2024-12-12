@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace TravelExpertsData;
 
@@ -43,6 +45,8 @@ public partial class Customer
     public string CustEmail { get; set; } = null!;
 
     public int? AgentId { get; set; }
+
+    public decimal Balance { get; set; }
 
     [ForeignKey("AgentId")]
     [InverseProperty("Customers")]
