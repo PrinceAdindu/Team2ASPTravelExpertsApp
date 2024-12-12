@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TravelExpertsData;
+using TravelExpertsData.DbManagers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<TravelExpertsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TravelExpertsConnectionString")
 ));
+
+builder.Services.AddScoped<CustomerManager>();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {

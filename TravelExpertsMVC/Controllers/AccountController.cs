@@ -19,8 +19,8 @@ namespace TravelExpertsMVC.Controllers
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
-            _customerManager = new CustomerManager();
             _context = context;
+            _customerManager = new CustomerManager(_context);
         }
         [HttpGet]
         [AllowAnonymous]
@@ -65,7 +65,6 @@ namespace TravelExpertsMVC.Controllers
             return View(model);
         }
 
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -125,7 +124,7 @@ namespace TravelExpertsMVC.Controllers
                         ProfileImage = imageBytes
                     };
 
-                    _customerManager.CreateCustomer(_context, customer);
+                    _customerManager.CreateCustomer(customer);
                     await _context.SaveChangesAsync();
 
                     user.CustomerId = customer.CustomerId;
