@@ -54,5 +54,16 @@ namespace TravelExpertsData
 
             }
         }
+
+        public static string GetAgentNameById(int id)
+        {
+            using(TravelExpertsContext db = new TravelExpertsContext())
+            {
+                string AgentFirstName = db.Agents.Where(a => a.AgentId == id).Select(a => a.AgtFirstName).FirstOrDefault();
+                string AgentLastName = db.Agents.Where(a => a.AgentId == id).Select(a => a.AgtLastName).FirstOrDefault();
+                string AgentFullName = AgentFirstName + " " + AgentLastName;
+                return AgentFullName;
+            }
+        }
     }
 }

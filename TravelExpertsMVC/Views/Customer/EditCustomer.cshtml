@@ -1,22 +1,18 @@
 ﻿ @model TravelExpertsData.Customer
 
 @{
-    ViewData["Title"] = "EditCustomer";
+    ViewData["Title"] = "Edit Customer";
 }
 
-<h1>EditCustomer</h1>
-
-<h4>Customer</h4>
+<h1>Edit Customer Information</h1>
 <hr />
+<h4>@Model.CustFirstName @Model.CustLastName</h4>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="EditCustomer" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
-                <input asp-for="CustomerId" class="form-control" />
-                <span asp-validation-for="CustomerId" class="text-danger"></span>
-            </div>
+            
             <div class="form-group">
                 <label asp-for="CustFirstName" class="control-label"></label>
                 <input asp-for="CustFirstName" class="form-control" />
@@ -67,11 +63,8 @@
                 <input asp-for="CustEmail" class="form-control" />
                 <span asp-validation-for="CustEmail" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="AgentId" class="control-label"></label>
-                <input asp-for="AgentId" class="form-control" />
-                <span asp-validation-for="AgentId" class="text-danger"></span>
-            </div>
+            
+            <br />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
