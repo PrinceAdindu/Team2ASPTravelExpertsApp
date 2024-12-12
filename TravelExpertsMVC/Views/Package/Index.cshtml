@@ -7,15 +7,13 @@
     <title>Packages Page</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/css/packages.css" rel="stylesheet" />
-   
 </head>
 <body>
-
     <header class="page-header"></header>
     <section>
         <div class="container mt-5">
-            <div class="travel-image">
-                <img src="~/images/travel.jpg" alt="travel package logo" id="travelimg" class="card-img-top" />
+            <div>
+                <img src="~/images/tr-expree.jpg" alt="travel package logo" id="travelimg" class="card-img-top travel-image" />
             </div>
             <h1 class="text-center mb-4">Travel Packages</h1>
             <div class="row" id="package-container">
@@ -26,7 +24,8 @@
     <main class="page-content">
         @foreach (var package in Model)
         {
-            <div class="card">
+            <!-- Update the background image dynamically -->
+            <div class="card" style="background-image:url('/images/@(package.PackageId).jpg');">
                 <div class="content">
                     <h2 class="title">@package.PkgName</h2>
                     <p class="copy">@package.PkgDesc</p>
