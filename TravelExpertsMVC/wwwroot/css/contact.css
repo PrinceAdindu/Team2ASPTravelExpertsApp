@@ -1,5 +1,64 @@
-﻿.card:hover {
-    transform: translateY(-5px) scale(1.005) translateZ(0);
-    box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11), 0 24px 46px #4c5656;
-    transition: 0.2s ease-in-out;
+﻿
+body {
+
+    background: #94b8b8;
+}
+
+h1 {
+    color: #fff;
+}
+
+.lead {
+    color: #003d99;
+}
+
+.wrapper {
+    margin: 10vh
+}
+
+
+
+.card {
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    height: 350px;
+    cursor: pointer; /* Add cursor effect */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for smooth hover effect */
+    background-color: #80b3ff;
+}
+
+.card-has-bg {
+    color: #d2d22d;
+    background-blend-mode: multiply;
+}
+
+.card:hover {
+    transform: scale(1.05); /* Scale up on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Add shadow on hover */
+}
+
+.card-img-overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: rgba(0, 0, 0, 0.5);
+    transition: background 0.3s ease, color 0.3s ease; /* Add transition for smooth hover effect */
+}
+
+.card-footer {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.card:hover .card-img-overlay {
+    background: rgba(0, 0, 0, 0.7); /* Darker overlay on hover */
+}
+
+.card-footer .media img {
+    max-width: 50px;
+}
+
+.card:hover .card-img-overlay, .card:hover .card-title, .card:hover .card-meta, .card:hover .card-text, .card:hover .card-footer, .card:hover .media-body h6, .card:hover .media-body small {
+    color: white !important; /* Change text color to white on hover */
 }

@@ -4,46 +4,49 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Contact List</title>
+    <title>Contact Page</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/contact.css" rel="stylesheet" />
+    
 </head>
 <body>
-    <div class="container">
-        <h2>Contact List</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Position</th>
-                    <th>Business Phone</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>Province</th>
-                    <th>Postal Code</th>
-                    <th>Country</th>
-                </tr>
-            </thead>
-            <tbody>
+    <section class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center mb-5">
+                    <h1 class="display-4 font-weight-bolder">Meet Our Agents</h1>
+                    <p class="lead">Connect with our experts to plan your next adventure.</p>
+                </div>
+            </div>
+            <div class="row">
                 @foreach (var agent in Model)
                 {
-                    <tr>
-                        <td>@agent.AgtFirstName</td>
-                        <td>@agent.AgtLastName</td>
-                        <td>@agent.AgtPosition</td>
-                        <td>@agent.AgtBusPhone</td>
-                        <td>@agent.AgtEmail</td>
-                        <td>@agent.AgncyAddress</td>
-                        <td>@agent.AgncyCity</td>
-                        <td>@agent.AgncyProv</td>
-                        <td>@agent.AgncyPostal</td>
-                        <td>@agent.AgncyCountry</td>
-                    </tr>
+                    <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card text-dark card-has-bg click-col" style="background-image:url('/images/@(agent.AgtLastName).jpg');">
+                            <div class="card-img-overlay d-flex flex-column">
+                                <div class="card-body">
+                                    <h4 class="card-title mt-0">@agent.AgtFirstName @agent.AgtLastName</h4>
+                                    <p class="card-meta mb-2">@agent.AgtPosition</p>
+                                    <p class="card-text"><i class="fas fa-phone-alt"></i> @agent.AgtBusPhone</p>
+                                    <p class="card-text"><i class="fas fa-envelope"></i> @agent.AgtEmail</p>
+                                    <p class="card-text"><i class="fas fa-map-marker-alt"></i> @($"{agent.AgncyAddress}, {agent.AgncyCity}, {agent.AgncyProv}, {agent.AgncyPostal}, {agent.AgncyCountry}")</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="media">
+                                        <img class="mr-3 rounded-circle" src="/images/@(agent.AgtLastName)-profile.jpg" alt="@agent.AgtFirstName @agent.AgtLastName">
+                                        <div class="media-body">
+                                            <h6 class="my-0 text-dark d-block">@agent.AgtFirstName @agent.AgtLastName</h6>
+                                            <small>@agent.AgtPosition</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
-            </tbody>
-        </table>
-    </div>
+            </div>
+        </div>
+    </section>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
