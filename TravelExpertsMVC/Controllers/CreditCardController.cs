@@ -42,7 +42,7 @@ namespace TravelExpertsMVC.Controllers
             List<KeyValuePair<string, string>> cardTypes = new()
             {
                 new KeyValuePair<string, string>("American Express", "AMEX"),
-                new KeyValuePair<string, string>("Diner's Club", "Diner's"),
+                new KeyValuePair<string, string>("Diner's Club", "Diners"),
                 new KeyValuePair<string, string>("Mastercard", "MC"),
                 new KeyValuePair<string, string>("VISA", "VISA")
             };

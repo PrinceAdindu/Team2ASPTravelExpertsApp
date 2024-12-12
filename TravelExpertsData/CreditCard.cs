@@ -25,7 +25,7 @@ public partial class CreditCard
 
     [Column("CCExpiry", TypeName = "datetime")]
     [Display(Name = "Expiry Date")]
-    [Range(typeof(DateTime), "2024-12-01", "2034-12-01", ErrorMessage = "Please ensure your card is not already expired.")]
+    [Range(typeof(DateTime), "2024-12-01", "2044-12-01", ErrorMessage = "Please ensure your card is not already expired and is valid within the next 20 years.")]
     public DateTime Ccexpiry { get; set; }
 
     public int CustomerId { get; set; }
