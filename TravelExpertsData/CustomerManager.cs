@@ -31,7 +31,7 @@ namespace TravelExpertsData
         }
 
         public static void UpdateCustomer(int id, Customer customer)
-        {
+                {
             using (TravelExpertsContext db = new TravelExpertsContext())
             {
                 Customer? customerToEdit = db.Customers.Find(id);
@@ -49,11 +49,11 @@ namespace TravelExpertsData
                     customerToEdit.CustEmail = customer.CustEmail;
 
                 }
-                db.SaveChanges();
+                    db.SaveChanges();
                 
 
             }
-        }
+                }
 
         public static string GetAgentNameById(int id)
         {

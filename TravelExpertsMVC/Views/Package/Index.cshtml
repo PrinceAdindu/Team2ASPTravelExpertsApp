@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<TravelExpertsData.Package>
 
+@{
+    ViewData["Title"] = "Index";
+}
 <link href="~/css/packages.css" rel="stylesheet" />
 
 <main class="page-content">
     @foreach (var package in Model)
-    {
+{
         <div class="card">
             <div class="content">
                 <h2 class="title">@package.PkgName</h2>
@@ -13,7 +16,7 @@
                 <p class="copy"><strong>End Date:</strong> @(package.PkgEndDate.HasValue ? package.PkgEndDate.Value.ToShortDateString() : "N/A")</p>
                 <p class="copy"><strong>Price:</strong> $@package.PkgBasePrice</p>
                 <a href="@Url.Action("Details", "Booking", new { id = package.PackageId })" class="btn">Book Now</a>
-            </div>
+    </div>
         </div>
-    }
+}
 </main>
