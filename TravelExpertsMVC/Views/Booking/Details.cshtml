@@ -1,0 +1,57 @@
+﻿@model TravelExpertsData.ViewModel.BookingDetailsViewModel
+
+<link href="~/css/booking.css" rel="stylesheet" />
+
+<div class="booking-container">
+    <h2>Book Package: @Model.PkgName</h2>
+    <div class="package-details">
+        <img src="@Model.PackageImage" alt="@Model.PkgName" class="package-image" />
+        <div class="details">
+            <p>@Model.PkgDesc</p>
+            <p><strong>Start Date:</strong> @Model.PkgStartDate</p>
+            <p><strong>End Date:</strong> @Model.PkgEndDate</p>
+            <p><strong>Price:</strong> $@Model.PkgBasePrice</p>
+        </div>
+    </div>
+
+    <form asp-action="Submit" method="post">
+        <input type="hidden" name="PackageId" asp-for="PackageId" value="@Model.PackageId" />
+        <input type="hidden" name="PkgName" asp-for="PkgName" value="@Model.PkgName" />
+        <input type="hidden" name="PkgBasePrice" asp-for="PkgBasePrice" value="@Model.PkgBasePrice" />
+        <input type="hidden" name="PKgDesc" asp-for="PkgDesc" value="@Model.PkgDesc" />
+        <input type="hidden" name="PkgStartDate" asp-for="PkgStartDate" asp-for="PackageId" value="@Model.PkgStartDate" />
+        <input type="hidden" name="PkgEndDate" asp-for="PkgEndDate" value="@Model.PkgEndDate" />
+        <input type="hidden" name="AgencyCommission" asp-for="AgencyCommission" value="@Model.AgencyCommission" />
+
+
+
+        <div class="form-group">
+            <label for="NumberOfTravellers">Number of Travellers:</label>
+            <input type="number" id="NumberOfTravellers" name="NumberOfTravellers" class="form-control" min="1" max="20" required asp-for="NumberOfTravellers"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="TripTypeId" class="form-label">Trip Type</label>
+            <select asp-for="TripTypeId" class="form-select" asp-items="@(new SelectList(Model.TripTypes, "TripTypeId", "Ttname"))">
+                <option value="">-- Select Trip Type --</option>
+            </select>
+            <input type="hidden" asp-for="TripTypeId" />
+            <span asp-validation-for="TripTypeId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ClassId" class="form-label">Trip Class</label>
+            <select asp-for="ClassId" class="form-select" asp-items="@(new SelectList(Model.Classes, "ClassId", "ClassName"))">
+                <option value="">-- Select Class Type --</option>
+            </select>
+            <input type="hidden" asp-for="ClassId" />
+            <span asp-validation-for="ClassId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Destination">Destination:</label>
+            <input type="text" id="Destination" name="Destination" asp-for="Destination" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Confirm Booking</button>
+    </form>
+</div>
