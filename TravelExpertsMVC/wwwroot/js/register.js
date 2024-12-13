@@ -136,7 +136,7 @@
 
         return true;
     }
-
+    validateForm();
     // Validate all inputs
     function validateForm() {
         let isFormValid = true;
@@ -148,12 +148,32 @@
         });
         !isFormValid && moveToContactButton.classList.add('disabled');
         isFormValid && moveToContactButton.classList.remove('disabled');
+        if (isFormValid) {
+            document.getElementById("headingTwo").getElementsByTagName("button")[0].classList.remove("disabled");
+            document.getElementById("headingTwo").getElementsByTagName("button")[0].classList.remove("collapsed");
+        }
         return isFormValid;
     }
 
     // Event listeners for real-time validation
     inputs.forEach((input) => {
         input.addEventListener("change", () => {
+            validateInput(input);
+            if (validateForm()) {
+                document.getElementById("headingTwo").getElementsByTagName("button")[0].classList.remove("disabled");
+                document.getElementById("headingTwo").getElementsByTagName("button")[0].classList.remove("collapsed");
+                validateAll();
+                moveToContactButton.classList.remove("disabled");
+            }
+            else {
+                !moveToContactButton.classList.contains("disabled") && moveToContactButton.classList.add("disabled");
+                document.getElementById("headingTwo").getElementsByTagName("button")[0].classList.add("disabled");
+                document.getElementById("headingTwo").getElementsByTagName("button")[0].classList.add("collapsed");
+                document.getElementById("headingThree").getElementsByTagName("button")[0].classList.add("disabled");
+                document.getElementById("headingThree").getElementsByTagName("button")[0].classList.add("collapsed");
+            }
+        });
+        input.addEventListener("focus", () => {
             validateInput(input);
             if (validateForm()) {
                 document.getElementById("headingTwo").getElementsByTagName("button")[0].classList.remove("disabled");

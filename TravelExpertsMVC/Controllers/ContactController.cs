@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using TravelExpertsData;
@@ -14,6 +15,7 @@ namespace TravelExpertsMVC.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var agents = from agent in _context.Agents

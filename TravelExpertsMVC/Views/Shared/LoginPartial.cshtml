@@ -3,13 +3,14 @@
 @using TravelExpertsData.DbManagers
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
-@inject CustomerManager CustomerManager
+@inject TravelExpertsData.DbManagers.CustomerManager CustomerManager
 
 <div class="nav-user-section d-inline-block float-end">
     @if (SignInManager.IsSignedIn(User))
     {
         // User is signed in
         var user = await UserManager.GetUserAsync(User);
+        int customerId = user?.CustomerId ?? 0;
         var userName = user?.FullName ?? "Traveller";
         int userId = user?.CustomerId ?? 0;
 
@@ -33,7 +34,7 @@
             <!-- Dropdown Menu -->
             <ul class="dropdown-menu animated-dropdown">
                 <li>
-                    <a href="/Account/UserProfile">
+                    <a asp-controller="Customer" asp-action="Details" asp-route-id="@customerId">
                         <i class="fas fa-user mx-1"></i> My Profile
                     </a>
                 </li>

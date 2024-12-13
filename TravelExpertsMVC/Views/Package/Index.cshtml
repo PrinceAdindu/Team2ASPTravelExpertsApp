@@ -5,9 +5,19 @@
 }
 <link href="~/css/packages.css" rel="stylesheet" />
 
-<main class="page-content">
+<div class="page-content mt-5" >
+    @if(ViewBag.ErrorMessage != null){
+        <div class="alert alert-dismissible alert-secondary" style="position: absolute; z-index: 10; right: 10px; top: 20px;">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>Heads up!</strong> This <a href="#" class="alert-link"> needs your attention</a>
+            <p>@ViewBag.ErrorMessage</p> 
+
+            To update your account click here <a asp-controller="Customer" asp-action="AddBalance" class="btn btn-info">Update your balance !</a>
+        </div>
+    }
+
     @foreach (var package in Model)
-{
+    {
         <div class="card">
             <div class="content">
                 <h2 class="title">@package.PkgName</h2>
@@ -16,7 +26,7 @@
                 <p class="copy"><strong>End Date:</strong> @(package.PkgEndDate.HasValue ? package.PkgEndDate.Value.ToShortDateString() : "N/A")</p>
                 <p class="copy"><strong>Price:</strong> $@package.PkgBasePrice</p>
                 <a href="@Url.Action("Details", "Booking", new { id = package.PackageId })" class="btn">Book Now</a>
-    </div>
+            </div>
         </div>
-}
-</main>
+    }
+</div>

@@ -9,10 +9,6 @@ namespace TravelExpertsData
 {
     public class CustomerManager
     {
-        private TravelExpertsContext _context { get; set; }
-        public CustomerManager(TravelExpertsContext ctx) {
-            _context = ctx;
-        }
         public List<Customer> GetCustomers()
         {
             using (TravelExpertsContext db = new TravelExpertsContext())
@@ -28,13 +24,13 @@ namespace TravelExpertsData
         {
             using (TravelExpertsContext db = new TravelExpertsContext())
             {
-                Customer? customer = _context.Customers.Find(id);
+                Customer? customer = db.Customers.Find(id);
                 return customer;
             }            
 
         }
 
-        public static void UpdateCustomer(int id, Customer customer)
+        public void UpdateCustomer(int id, Customer customer)
                 {
             using (TravelExpertsContext db = new TravelExpertsContext())
             {
@@ -70,7 +66,7 @@ namespace TravelExpertsData
             }
         }
 
-		public static void UpdateBalance(int custID, decimal updatedBalance)
+		public void UpdateBalance(int custID, decimal updatedBalance)
 		{
 			using (TravelExpertsContext db = new TravelExpertsContext())
 			{

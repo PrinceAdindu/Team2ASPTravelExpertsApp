@@ -1981,20 +1981,22 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 
 /* Scrollbar styles for modern browsers */
 ::-webkit-scrollbar {
-    width: 12px; /* Width of the scrollbar */
-    background: transparent; /* Transparent background */
+    width: 7px;
+    margin: 2px;/* Width of the scrollbar */
+    background: transparent;
+    border-radius: 12px;
 }
 
 /* Scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-    background: #6998AB; /* Primary color */
+    background: #2C4D75; /* Primary color */
     border-radius: 12px; /* Rounded edges */
-    transition: background-color 0.3s ease;
+    transition: background-color 1s ease-in;
 }
 
     /* Scrollbar thumb hover */
     ::-webkit-scrollbar-thumb:hover {
-        background: #2C4D75; /* Secondary color */
+        background: #6998AB; /* Secondary color */
     }
 
 /* Remove scrollbar buttons (up/down arrows) */
@@ -2007,8 +2009,3 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     background: transparent; /* Transparent to match the background */
 }
 
-/* Scrollbar for Firefox */
-* {
-    scrollbar-width: thin; /* Thin scrollbar */
-    scrollbar-color: #6998AB transparent; /* Thumb color and transparent track */
-}

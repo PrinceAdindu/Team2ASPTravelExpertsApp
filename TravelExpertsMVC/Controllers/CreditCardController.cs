@@ -1,21 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TravelExpertsData;
 
 namespace TravelExpertsMVC.Controllers
 {
+    [Authorize]
     public class CreditCardController : Controller
     {
 
-		private TravelExpertsContext _context;
 		private CustomerManager CustomerManager;
 		public CreditCardController()
 		{
-			this._context = new TravelExpertsContext();
-			this.CustomerManager = new CustomerManager(_context);
+			this.CustomerManager = new CustomerManager();
 		}
-		// GET: CreditCardController
+        // GET: CreditCardController
+        
 		public ActionResult AddCard()
         {
             SelectList list = CreateCardTypeList();

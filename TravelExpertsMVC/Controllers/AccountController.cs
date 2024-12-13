@@ -12,7 +12,7 @@ namespace TravelExpertsMVC.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private CustomerManager _customerManager;
+        private TravelExpertsData.DbManagers.CustomerManager _customerManager;
         private TravelExpertsContext _context;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, TravelExpertsContext context)
@@ -20,12 +20,17 @@ namespace TravelExpertsMVC.Controllers
             this._userManager = userManager;
             this._signInManager = signInManager;
             _context = context;
-            _customerManager = new CustomerManager(_context);
+            _customerManager = new TravelExpertsData.DbManagers.CustomerManager(_context);
         }
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                // If the user is already logged in, redirect to the home page or dashboard
+                return RedirectToAction("Index", "Home");
+            }
             return View(new LoginViewModel());
         }
 
@@ -65,6 +70,7 @@ namespace TravelExpertsMVC.Controllers
             return View(model);
         }
 
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

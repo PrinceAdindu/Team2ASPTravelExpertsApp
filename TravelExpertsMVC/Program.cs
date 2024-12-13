@@ -12,7 +12,7 @@ builder.Services.AddDbContext<TravelExpertsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TravelExpertsConnectionString")
 ));
 
-builder.Services.AddScoped<CustomerManager>();
+builder.Services.AddScoped<TravelExpertsData.DbManagers.CustomerManager>();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {

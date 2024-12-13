@@ -64,6 +64,4 @@ public partial class Customer
 
     [InverseProperty("Customer")]
     public virtual ICollection<CustomersReward> CustomersRewards { get; set; } = new List<CustomersReward>();
-
-    public byte[]? ProfileImage { get; set; }
 }

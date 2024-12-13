@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 using TravelExpertsData;
@@ -9,23 +11,40 @@ namespace TravelExpertsMVC.Controllers
     {
 		private TravelExpertsContext _context;
 		private CustomerManager CustomerManager;
-		public PackageController()
+        private readonly UserManager<User> _userManager;
+
+        public PackageController(UserManager<User> userManager)
 		{
 			this._context = new TravelExpertsContext();
-			this.CustomerManager = new CustomerManager(_context);
-		}
-		// GET: PackageController
-		public ActionResult Index()
+            this.CustomerManager = new CustomerManager();
+            _userManager = userManager;
+        }
+        // GET: PackageController
+        //public ActionResult Index()
+        //      {
+        //          List<Package> packages = PackageManager.GetPackages();
+        //          return View(packages);
+        //      }
+
+        public IActionResult Index(bool flag = true)
         {
             List<Package> packages = PackageManager.GetPackages();
+            if (flag)
+            {
+                ViewBag.ErrorMessage = TempData["Error"];
+                return View(packages);
+            }
             return View(packages);
         }
 
         // GET: PackageController/Details/5
-        public ActionResult Payment(int id)
+        [Authorize]
+        public async Task<ActionResult> Payment(int id)
         {
             Package pkg = PackageManager.GetPackageByID(id)!;
-            Customer user = CustomerManager.GetCustomerById(104);
+            var currentUser = await _userManager.GetUserAsync(User);
+            int customerId = currentUser?.CustomerId ?? 0;
+            Customer user = CustomerManager.GetCustomerById(customerId);
 
             decimal paymentTotal = (decimal)(pkg.PkgBasePrice + pkg.PkgAgencyCommission)!;
             decimal custBalance = user.Balance;
@@ -41,16 +60,19 @@ namespace TravelExpertsMVC.Controllers
             else
             {
                 TempData["Error"] = $"You have insufficient funds, your current balance is ${custBalance}.";
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",true);
             }
         }
 
         // GET: PackageController/Create
         [HttpPost]
-        public ActionResult Payment(int id, int paymentID = 0)
+        [Authorize]
+        public async Task<ActionResult> Payment(int id, int paymentID = 0)
         {
-            Package pkg = PackageManager.GetPackageByID(id);
-            Customer user = CustomerManager.GetCustomerById(104);
+            Package pkg = PackageManager.GetPackageByID(id)!;
+            var currentUser = await _userManager.GetUserAsync(User);
+            int customerId = currentUser?.CustomerId ?? 0;
+            Customer user = CustomerManager.GetCustomerById(customerId);
 
             decimal paymentTotal = (decimal)(pkg.PkgBasePrice + pkg.PkgAgencyCommission)!;
             decimal custBalance = user.Balance;
@@ -63,6 +85,7 @@ namespace TravelExpertsMVC.Controllers
         }
 
         // GET: PackageController/Edit/5
+        [Authorize]
         public ActionResult ThankYou()
         {
             return View();

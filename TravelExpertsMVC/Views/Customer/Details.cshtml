@@ -5,87 +5,220 @@
     ViewData["Title"] = "Customer Details";
 }
 
-<h1>Customer Details</h1>
+<style>
+    .profile-details-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
 
-<div>
-    <h4>@Model.CustFirstName @Model.CustLastName</h4>
-    <hr />
-    <dl class="row">
-        
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CustFirstName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CustFirstName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CustLastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CustLastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CustAddress)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CustAddress)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CustCity)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CustCity)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CustProv)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CustProv)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CustPostal)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CustPostal)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CustCountry)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CustCountry)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CustHomePhone)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CustHomePhone)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CustBusPhone)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CustBusPhone)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CustEmail)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CustEmail)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AgentId)
-        </dt>
-        <dd class="col-sm-10">
-            <a asp-action="Index" asp-controller="Contact">
-                @CustomerManager.GetAgentNameById((int)Model.AgentId)
-            </a>
-            
-        </dd>
-    </dl>
-</div>
-<div>
-    <button class="btn btn-link">@Html.ActionLink("Edit", "EditCustomer", new { id = Model.CustomerId })</button>
-    <button class="btn btn-link">@Html.ActionLink("View Order History", "OrderHistory", new { id = Model.CustomerId })</button>
+    .profile-image {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 90px;
+        align-items: center;
+    }
 
-    <button type="button" class="btn btn-link"><a asp-action="Index">Back to List</a></button>
+        .profile-image img {
+            border: 5px solid #6998AB;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            height: 320px;
+            border-radius: 50%;
+        }
+
+    .edit-btn {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: #2C4D75;
+        border: none;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .edit-btn:hover {
+            background-color: #6998AB;
+        }
+
+    .details-section {
+        flex: 3;
+        background-color: #f9f9f9;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .details-section h4 {
+            color: #2C4D75;
+        }
+
+        .details-section dt {
+            color: #6998AB;
+            font-weight: bold;
+        }
+
+    .btn-link a {
+        color: #2C4D75;
+        text-decoration: none;
+    }
+
+        .btn-link a:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<div class="mt-4">
+    <h1 class="text-center" style="color: #2C4D75;">Customer Details</h1>
+
+    <!-- Profile and Details Section -->
+    <div class="profile-details-container">
+        <!-- Profile Image Section -->
+        <div class="profile-image">
+            @if (Model.ProfileImage != null)
+            {
+                <img src="data:image/png;base64,@Convert.ToBase64String(Model.ProfileImage)"
+                     alt="Profile Picture"
+                     id="profileImage" />
+            }
+            else
+            {
+                <img src="/images/default-profile.png"
+                     alt="Default Profile Picture"
+                     id="profileImage" />
+            }
+            <form id="uploadForm" asp-action="UploadProfileImage" method="post" enctype="multipart/form-data" style="position: absolute;bottom: 115px; right: 75px;">
+                <input accept="image/*" type="file" name="ProfileImage" id="fileInput" style="display:none;" onchange="previewImage(event)" />
+                <button type="button" class="edit-btn" title="Edit Profile Picture" onclick="document.getElementById('fileInput').click();">
+                    <i class="fas fa-edit"></i>
+                </button>
+
+            </form>
+
+            <button type="submit" form="uploadForm" class="btn btn-primary mt-5">Submit</button>
+        </div>
+
+        <!-- Details Section -->
+        <div class="details-section">
+            <h4>@Model.CustFirstName @Model.CustLastName</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.CustFirstName)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.CustFirstName)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.CustLastName)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.CustLastName)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.CustAddress)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.CustAddress)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.CustCity)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.CustCity)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.CustProv)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.CustProv)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.CustPostal)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.CustPostal)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.CustCountry)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.CustCountry)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.CustHomePhone)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.CustHomePhone)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.CustBusPhone)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.CustBusPhone)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.CustEmail)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.CustEmail)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.AgentId)
+                </dt>
+                <dd class="col-sm-9">
+                    <a asp-action="Index" asp-controller="Contact">
+                        @CustomerManager.GetAgentNameById((int)Model.AgentId)
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- Actions Section -->
+    <div class="mt-4 text-center">
+        <button class="btn btn-primary" style="background-color: #6998AB; border-color: #2C4D75;">
+            @Html.ActionLink("Edit", "EditCustomer", new { id = Model.CustomerId })
+        </button>
+        <button class="btn btn-primary" style="background-color: #6998AB; border-color: #2C4D75;">
+            @Html.ActionLink("View Order History", "OrderHistory", new { id = Model.CustomerId })
+        </button>
+        @* <button class="btn btn-secondary" style="background-color: #6998AB; border-color: #6998AB;">
+            <a asp-action="Index" style="color: white;">Back to List</a>
+        </button> *@
+    </div>
 </div>
+
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('profileImage').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
