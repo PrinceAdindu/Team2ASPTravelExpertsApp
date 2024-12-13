@@ -1,4 +1,4 @@
-﻿ @model TravelExpertsData.Customer
+﻿ @model TravelExpertsData.ViewModel.CustomerViewModel
 
 @{
     ViewData["Title"] = "Edit Customer";
@@ -12,6 +12,7 @@
     <div class="col-md-4">
         <form asp-action="EditCustomer" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="CustomerId" type="hidden" />
             
             <div class="form-group">
                 <label asp-for="CustFirstName" class="control-label"></label>

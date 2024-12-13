@@ -10,7 +10,7 @@ namespace TravelExpertsData;
 [Index("PackageId", Name = "PackagesPackages_Products_Suppliers")]
 [Index("ProductSupplierId", Name = "ProductSupplierId")]
 [Index("ProductSupplierId", Name = "Products_SuppliersPackages_Products_Suppliers")]
-[Index("PackageId", "ProductSupplierId", Name = "UQ__Packages__29CA8E95DE3A2E28", IsUnique = true)]
+[Index("PackageId", "ProductSupplierId", Name = "UQ__Packages__29CA8E95EB6A122E", IsUnique = true)]
 public partial class PackagesProductsSupplier
 {
     [Key]

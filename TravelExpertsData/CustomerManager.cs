@@ -9,7 +9,11 @@ namespace TravelExpertsData
 {
     public class CustomerManager
     {
-        public static List<Customer> GetCustomers()
+        private TravelExpertsContext _context { get; set; }
+        public CustomerManager(TravelExpertsContext ctx) {
+            _context = ctx;
+        }
+        public List<Customer> GetCustomers()
         {
             using (TravelExpertsContext db = new TravelExpertsContext())
             {
@@ -20,18 +24,18 @@ namespace TravelExpertsData
             
         }
 
-        public static Customer GetCustomerById(int id)
+        public Customer GetCustomerById(int id)
         {
             using (TravelExpertsContext db = new TravelExpertsContext())
             {
-                Customer? customer = db.Customers.Find(id);
+                Customer? customer = _context.Customers.Find(id);
                 return customer;
-            }
+            }            
 
         }
 
         public static void UpdateCustomer(int id, Customer customer)
-        {
+                {
             using (TravelExpertsContext db = new TravelExpertsContext())
             {
                 Customer? customerToEdit = db.Customers.Find(id);
@@ -49,11 +53,11 @@ namespace TravelExpertsData
                     customerToEdit.CustEmail = customer.CustEmail;
 
                 }
-                db.SaveChanges();
+                    db.SaveChanges();
                 
 
             }
-        }
+                }
 
         public static string GetAgentNameById(int id)
         {
@@ -65,5 +69,18 @@ namespace TravelExpertsData
                 return AgentFullName;
             }
         }
-    }
+
+		public static void UpdateBalance(int custID, decimal updatedBalance)
+		{
+			using (TravelExpertsContext db = new TravelExpertsContext())
+			{
+				Customer customer = db.Customers.Find(custID);
+				if (customer != null)
+				{
+					customer.Balance = updatedBalance;
+					db.SaveChanges();
+				}
+			}
+		}
+	}
 }

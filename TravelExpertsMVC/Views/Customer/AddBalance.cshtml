@@ -1,0 +1,53 @@
+﻿@model TravelExpertsData.CustomerDTO
+@{
+    ViewData["Title"] = "Add Balance";
+}
+
+<div>
+    <h1 class="text-center">Add Balance</h1>
+    @{if (TempData["NoCards"] != null)
+    {
+        <div>
+            <p>@TempData["NoCards"]</p>
+            <a asp-action="AddCard" asp-controller="CreditCard" class="btn btn-primary">Add a Card</a>
+        </div>
+    }}
+    <form asp-action="AddBalance" method="post">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <label asp-for="CurrentBalance" class="control-label"></label>
+                <input asp-for="CurrentBalance" value="@Model.CurrentBalance" class="form-control" readonly />
+                <span asp-validation-for="CurrentBalance" class="text-danger"></span>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <label asp-for="AddToBalance" class="control-label"></label>
+                <input asp-for="AddToBalance" class="form-control" />
+                <span asp-validation-for="AddToBalance" class="text-danger"></span>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <label asp-for="CustCard" class="control-label"></label>
+                <select asp-for="CustCard" class="form-control" asp-items="ViewBag.Cards"></select>
+                <span asp-validation-for="CustCard" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 d-flex align-items-start">
+                <a asp-action="AddCard" asp-controller="CreditCard" class="btn btn-primary mt-4">Add another Card</a>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center">
+                <input type="submit" value="Top-up Balance" class="btn btn-primary" />
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </form>
+</div>

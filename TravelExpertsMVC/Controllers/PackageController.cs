@@ -1,22 +1,71 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 using TravelExpertsData;
 
 namespace TravelExpertsMVC.Controllers
 {
     public class PackageController : Controller
     {
-        private readonly TravelExpertsContext _context;
-
-        public PackageController(TravelExpertsContext context)
+		private TravelExpertsContext _context;
+		private CustomerManager CustomerManager;
+		public PackageController()
+		{
+			this._context = new TravelExpertsContext();
+			this.CustomerManager = new CustomerManager(_context);
+		}
+		// GET: PackageController
+		public ActionResult Index()
         {
-            _context = context;
+            List<Package> packages = PackageManager.GetPackages();
+            return View(packages);
         }
 
-        public IActionResult Index()
+        // GET: PackageController/Details/5
+        public ActionResult Payment(int id)
         {
-            var package = _context.Packages.ToList();
-            return View(package);
+            Package pkg = PackageManager.GetPackageByID(id)!;
+            Customer user = CustomerManager.GetCustomerById(104);
+
+            decimal paymentTotal = (decimal)(pkg.PkgBasePrice + pkg.PkgAgencyCommission)!;
+            decimal custBalance = user.Balance;
+
+            ViewBag.PaymentTotal = paymentTotal.ToString("c");
+            ViewBag.Balance = custBalance.ToString("c");
+
+            if (custBalance >= paymentTotal)
+            {
+                TempData["Error"] = null;
+                return View(pkg);
+            }
+            else
+            {
+                TempData["Error"] = $"You have insufficient funds, your current balance is ${custBalance}.";
+                return RedirectToAction("Index");
+            }
+        }
+
+        // GET: PackageController/Create
+        [HttpPost]
+        public ActionResult Payment(int id, int paymentID = 0)
+        {
+            Package pkg = PackageManager.GetPackageByID(id);
+            Customer user = CustomerManager.GetCustomerById(104);
+
+            decimal paymentTotal = (decimal)(pkg.PkgBasePrice + pkg.PkgAgencyCommission)!;
+            decimal custBalance = user.Balance;
+
+            decimal finalBalance = custBalance - paymentTotal;
+
+            CustomerManager.UpdateBalance(user.CustomerId, finalBalance);
+
+            return RedirectToAction("ThankYou");
+        }
+
+        // GET: PackageController/Edit/5
+        public ActionResult ThankYou()
+        {
+            return View();
         }
     }
 }
