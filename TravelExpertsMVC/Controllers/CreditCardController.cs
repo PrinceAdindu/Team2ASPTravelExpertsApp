@@ -7,16 +7,24 @@ namespace TravelExpertsMVC.Controllers
 {
     public class CreditCardController : Controller
     {
-        // GET: CreditCardController
-        public ActionResult AddCard()
+
+		private TravelExpertsContext _context;
+		private CustomerManager CustomerManager;
+		public CreditCardController()
+		{
+			this._context = new TravelExpertsContext();
+			this.CustomerManager = new CustomerManager(_context);
+		}
+		// GET: CreditCardController
+		public ActionResult AddCard()
         {
             SelectList list = CreateCardTypeList();
             ViewBag.CardTypes = list;
 
-            Customer customer = CustomerManager.GetCustomerByID(104);
-            ViewBag.CustomerID = customer.CustomerId;
+            Customer customer = CustomerManager.GetCustomerById(104);
 
             CreditCard newCard = new CreditCard();
+            newCard.CustomerId = customer.CustomerId;
             return View(newCard);
         }
 
@@ -25,7 +33,7 @@ namespace TravelExpertsMVC.Controllers
         {
             SelectList list = CreateCardTypeList();
             ViewBag.CardTypes = list;
-
+            ModelState.Remove("CustomerId");
             if (ModelState.IsValid)
             {
                 CreditCardManager.AddCreditCard(newCard);

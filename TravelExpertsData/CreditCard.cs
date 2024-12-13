@@ -9,28 +9,28 @@ namespace TravelExpertsData;
 [Index("CustomerId", Name = "CustomersCreditCards")]
 public partial class CreditCard
 {
-    [Key]
-    public int CreditCardId { get; set; }
+	[Key]
+	public int CreditCardId { get; set; }
 
-    [Column("CCName")]
-    [StringLength(10)]
-    [Display(Name = "Card Type")]
-    public string Ccname { get; set; } = null!;
+	[Column("CCName")]
+	[StringLength(10)]
+	[Display(Name = "Card Type")]
+	public string Ccname { get; set; } = null!;
 
-    [Column("CCNumber")]
-    [StringLength(50)]
-    [Display(Name = "Card Number")]
-    [RegularExpression("^([0-9]{4})([0-9]{4})([0-9]{4})([0-9]{4})$", ErrorMessage = "Ensure your card number is entered in the format 1111222233334444.")]
-    public string Ccnumber { get; set; } = null!;
+	[Column("CCNumber")]
+	[StringLength(50)]
+	[Display(Name = "Card Number")]
+	[RegularExpression("^([0-9]{4})([0-9]{4})([0-9]{4})([0-9]{4})$", ErrorMessage = "Ensure your card number is entered in the format 1111222233334444.")]
+	public string Ccnumber { get; set; } = null!;
 
-    [Column("CCExpiry", TypeName = "datetime")]
-    [Display(Name = "Expiry Date")]
-    [Range(typeof(DateTime), "2024-12-01", "2044-12-01", ErrorMessage = "Please ensure your card is not already expired and is valid within the next 20 years.")]
-    public DateTime Ccexpiry { get; set; }
+	[Column("CCExpiry", TypeName = "datetime")]
+	[Display(Name = "Expiry Date")]
+	[Range(typeof(DateTime), "2024-12-01", "2044-12-01", ErrorMessage = "Please ensure your card is not already expired and is valid within the next 20 years.")]
+	public DateTime Ccexpiry { get; set; }
 
-    public int CustomerId { get; set; }
+	public int CustomerId { get; set; }
 
-    [ForeignKey("CustomerId")]
-    [InverseProperty("CreditCards")]
-    public virtual Customer? Customer { get; set; } = null!;
+	[ForeignKey("CustomerId")]
+	[InverseProperty("CreditCards")]
+	public virtual Customer? Customer { get; set; } = null!;
 }

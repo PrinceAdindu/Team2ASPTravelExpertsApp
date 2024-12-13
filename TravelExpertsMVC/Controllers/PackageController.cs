@@ -7,8 +7,15 @@ namespace TravelExpertsMVC.Controllers
 {
     public class PackageController : Controller
     {
-        // GET: PackageController
-        public ActionResult Index()
+		private TravelExpertsContext _context;
+		private CustomerManager CustomerManager;
+		public PackageController()
+		{
+			this._context = new TravelExpertsContext();
+			this.CustomerManager = new CustomerManager(_context);
+		}
+		// GET: PackageController
+		public ActionResult Index()
         {
             List<Package> packages = PackageManager.GetPackages();
             return View(packages);
@@ -18,7 +25,7 @@ namespace TravelExpertsMVC.Controllers
         public ActionResult Payment(int id)
         {
             Package pkg = PackageManager.GetPackageByID(id)!;
-            Customer user = CustomerManager.GetCustomerByID(104);
+            Customer user = CustomerManager.GetCustomerById(104);
 
             decimal paymentTotal = (decimal)(pkg.PkgBasePrice + pkg.PkgAgencyCommission)!;
             decimal custBalance = user.Balance;
@@ -43,7 +50,7 @@ namespace TravelExpertsMVC.Controllers
         public ActionResult Payment(int id, int paymentID = 0)
         {
             Package pkg = PackageManager.GetPackageByID(id);
-            Customer user = CustomerManager.GetCustomerByID(104);
+            Customer user = CustomerManager.GetCustomerById(104);
 
             decimal paymentTotal = (decimal)(pkg.PkgBasePrice + pkg.PkgAgencyCommission)!;
             decimal custBalance = user.Balance;

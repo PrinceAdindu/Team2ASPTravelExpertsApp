@@ -82,7 +82,7 @@ namespace TravelExperts.Controllers
 
                 await _bookingManager.AddBookingDetailsAsync(bookingDetail);
 
-                return RedirectToAction("Confirmation");
+                return RedirectToAction("Payment", "Package", new { id = model.PackageId });
             }
             else
             {
