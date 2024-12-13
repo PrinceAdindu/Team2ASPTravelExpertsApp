@@ -207,15 +207,15 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     }
 
 .site-nav {
-    position: absolute;
-    top: 0;
+/*    position: absolute;
+    top: 0;*/
     z-index: 9;
     width: 100%;
 }
 
 .site-nav {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
     .site-nav h1 {
@@ -1977,4 +1977,38 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 
 .btn-secondary.btn-custom:hover {
     background: #555;
+}
+
+/* Scrollbar styles for modern browsers */
+::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+    background: transparent; /* Transparent background */
+}
+
+/* Scrollbar thumb */
+::-webkit-scrollbar-thumb {
+    background: #6998AB; /* Primary color */
+    border-radius: 12px; /* Rounded edges */
+    transition: background-color 0.3s ease;
+}
+
+    /* Scrollbar thumb hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #2C4D75; /* Secondary color */
+    }
+
+/* Remove scrollbar buttons (up/down arrows) */
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* Scrollbar corner (for two-directional scrollbars) */
+::-webkit-scrollbar-corner {
+    background: transparent; /* Transparent to match the background */
+}
+
+/* Scrollbar for Firefox */
+* {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #6998AB transparent; /* Thumb color and transparent track */
 }
