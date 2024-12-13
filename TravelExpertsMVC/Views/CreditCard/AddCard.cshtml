@@ -3,7 +3,7 @@
     ViewData["Title"] = "Add a Credit Card";
 }
 
-<div>
+<div class="mt-4">
     <h1 class="text-center">Add a Credit Card</h1>
     <form asp-action="AddCard" method="post">
         <div class="row">
@@ -34,7 +34,7 @@
             <div class="col-md-4"></div>
         </div>
         <div>
-            <input asp-for="CustomerId" class="form-control"/>
+            <input asp-for="CustomerId" class="form-control" hidden/>
         </div>
         <div class="row pt-3">
             <div class="col-md-4"></div>

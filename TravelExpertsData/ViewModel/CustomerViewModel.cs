@@ -63,14 +63,14 @@ public class CustomerViewModel
 	[Display(Name = "Home Phone Number")]
 
 	[StringLength(20)]
-	public string? CustHomePhone { get; set; }
+	public string CustHomePhone { get; set; }
 
 	[Required(ErrorMessage = "Please enter Business Phone Number")]
 	[RegularExpression(@"^\d{10}$",
 		ErrorMessage = "Phone number must be exactly 10 digits and contain only numerical characters")]
 	[Display(Name = "Business Phone Number")]
 	[StringLength(20)]
-	public string CustBusPhone { get; set; } = null!;
+	public string? CustBusPhone { get; set; } = null!;
 
 
 	[RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
@@ -83,7 +83,5 @@ public class CustomerViewModel
 	[Display(Name = "Assigned Agent")]
 	public int? AgentId { get; set; }
 
-	[ForeignKey("AgentId")]
-	[InverseProperty("Customers")]
-	public Agent? Agent { get; set; }
+    public byte[]? ProfileImage { get; set; }
 }

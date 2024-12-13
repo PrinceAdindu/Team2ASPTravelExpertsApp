@@ -9,7 +9,7 @@ namespace TravelExpertsData.ViewModel
 {
     public class BookingDetailsViewModel
     {
-        public int? CustomerId { get; set; } = 104;
+        public int? CustomerId { get; set; } = null!;
         public int PackageId { get; set; }
         public string PkgName { get; set; }
         public string PkgDesc { get; set; }

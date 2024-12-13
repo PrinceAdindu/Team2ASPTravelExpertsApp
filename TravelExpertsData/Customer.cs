@@ -34,10 +34,10 @@ public partial class Customer
     public string? CustCountry { get; set; }
 
     [StringLength(20)]
-    public string CustHomePhone { get; set; } = null!;
+    public string CustHomePhone { get; set; }
 
     [StringLength(20)]
-    public string? CustBusPhone { get; set; }
+    public string? CustBusPhone { get; set; } = null!;
 
     [StringLength(50)]
     public string CustEmail { get; set; } = null!;

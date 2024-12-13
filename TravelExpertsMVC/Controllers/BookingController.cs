@@ -3,6 +3,7 @@ using TravelExpertsData;
 using System.Linq;
 using TravelExpertsData.ViewModel;
 using TravelExpertsData.DbManagers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TravelExperts.Controllers
 {
@@ -17,6 +18,7 @@ namespace TravelExperts.Controllers
         }
 
         // GET: Booking/Details/{id}
+        [Authorize]
         public IActionResult Details(int id)
         {
             var package = _context.Packages.FirstOrDefault(p => p.PackageId == id);
@@ -47,6 +49,7 @@ namespace TravelExperts.Controllers
 
         // POST: Booking/Submit
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Submit(BookingDetailsViewModel model)
         {
             model.TripTypes = _context.TripTypes.ToList();
@@ -90,11 +93,6 @@ namespace TravelExperts.Controllers
             }
 
             return View("Details", model);
-        }
-
-        public IActionResult Confirmation()
-        {
-            return View();
         }
 
         public string GenerateBookingNumber(string BookingDate)

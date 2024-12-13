@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Drawing;
 using TravelExpertsData;
 using TravelExpertsData.DbManagers;
@@ -8,7 +11,8 @@ using TravelExpertsData.ViewModel;
 
 namespace TravelExpertsMVC.Controllers
 {
-	public class CustomerController : Controller
+    [Authorize]
+    public class CustomerController : Controller
 	{
 		/*
          * Instructions on how to merge my branch with the rest of the app
@@ -21,11 +25,15 @@ namespace TravelExpertsMVC.Controllers
          * 
          * Kazi
          */
-		private TravelExpertsContext _context;
-		private CustomerManager CustomerManager;
-		public CustomerController() {
-			this._context = new TravelExpertsContext();
-			this.CustomerManager = new CustomerManager(_context);
+
+		private TravelExpertsData.CustomerManager CustomerManager;
+		private readonly TravelExpertsContext _context;
+        private readonly UserManager<User> _userManager;
+
+        public CustomerController(TravelExpertsContext ctx, UserManager<User> userManager) {
+			_userManager = userManager;
+			this._context = ctx;
+            this.CustomerManager = new TravelExpertsData.CustomerManager();
 		}
 		 
 
@@ -38,31 +46,73 @@ namespace TravelExpertsMVC.Controllers
 		}
 
 
-		public ActionResult Details(int id) /* <----this id should be replaced with customerid from session*/
+		public async Task<ActionResult> Details(int id) /* <----this id should be replaced with customerid from session*/
 		{
-			Customer? customer = CustomerManager.GetCustomerById(104);
+			Customer? customer = CustomerManager.GetCustomerById(id);
 			CustomerViewModel customerView = new CustomerViewModel()
 			{
 				CustFirstName = customer.CustFirstName,
 				CustLastName = customer.CustLastName,
 				CustHomePhone = customer.CustHomePhone,
 				CustAddress = customer.CustAddress,
-				CustBusPhone = customer.CustBusPhone!,
+				CustBusPhone = customer.CustBusPhone ?? "",
 				CustCity = customer.CustCity,
 				CustCountry = customer.CustCountry,
 				CustEmail = customer.CustEmail,
 				CustomerId = customer.CustomerId,
 				CustPostal = customer.CustPostal,
 				CustProv = customer.CustProv,
-				AgentId = customer.AgentId,
-				Agent = customer.Agent,
+				AgentId = customer.AgentId ?? 0,
+				ProfileImage = customer.ProfileImage
 			};
 			return View(customerView);
 		}
 
-		public ActionResult EditCustomer(int id) /* <----this id should be replaced with customerid from session*/
+		[HttpPost]
+        public async Task<IActionResult> UploadProfileImage(IFormFile ProfileImage)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (ProfileImage == null || ProfileImage.Length == 0)
+			{
+				TempData["Error"] = "Please select a valid image file.";			
+                return RedirectToAction("Details", new { id = user.CustomerId });
+            }
+
+            try
+            {
+                // Read the file into a byte array
+                using var memoryStream = new MemoryStream();
+                await ProfileImage.CopyToAsync(memoryStream);
+                var imageBytes = memoryStream.ToArray();
+
+                // Find the customer in the database
+                var customer = await _context.Customers.FindAsync(user.CustomerId);
+                if (customer == null)
+                {
+                    TempData["Error"] = "Customer not found.";
+                    return RedirectToAction("Index");
+                }
+
+                // Update the profile image
+                customer.ProfileImage = imageBytes;
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                TempData["Success"] = "Profile image updated successfully!";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "An error occurred while uploading the image: " + ex.Message;
+            }
+
+            return RedirectToAction("Details", new { id = user.CustomerId });
+        }
+
+
+        public ActionResult EditCustomer(int id) /* <----this id should be replaced with customerid from session*/
 		{
-			Customer? customer = CustomerManager.GetCustomerById(104);
+			Customer? customer = CustomerManager.GetCustomerById(id);
 			CustomerViewModel customerView = new CustomerViewModel()
 			{
 				CustFirstName = customer.CustFirstName,
@@ -77,7 +127,6 @@ namespace TravelExpertsMVC.Controllers
 				CustPostal = customer.CustPostal,
 				CustProv = customer.CustProv,
 				AgentId = customer.AgentId,
-				Agent= customer.Agent,
 			};
 			return View(customerView);
 		}
@@ -101,7 +150,6 @@ namespace TravelExpertsMVC.Controllers
 					CustPostal = customerViewModel.CustPostal,
 					CustProv = customerViewModel.CustProv,
 					AgentId = customerViewModel.AgentId,
-					Agent = customerViewModel.Agent,
 				};
 				CustomerManager.UpdateCustomer(customerViewModel.CustomerId, customer);
 				TempData["Message"] = "Customer Information Updated!";
@@ -120,11 +168,12 @@ namespace TravelExpertsMVC.Controllers
 			return View(bookingHistory);
 		}
 
-		public ActionResult AddBalance()
+		public async Task<ActionResult> AddBalance()
 		{
-			Customer customer = CustomerManager.GetCustomerById(104);
+            var currentUser = await _userManager.GetUserAsync(User);
+            Customer customer = CustomerManager.GetCustomerById(currentUser.CustomerId ?? 104);
 
-			int id = customer.CustomerId;
+			int id = currentUser.CustomerId ?? 0;
 
 			List<CreditCard> creditCards = CreditCardManager.GetCreditCardsByCustomer(id);
 			if (creditCards != null)
@@ -150,9 +199,10 @@ namespace TravelExpertsMVC.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult AddBalance(CustomerDTO customerAddBalance)
+		public async Task<ActionResult> AddBalance(CustomerDTO customerAddBalance)
 		{
-			Customer customer = CustomerManager.GetCustomerById(104);
+            var currentUser = await _userManager.GetUserAsync(User);
+            Customer customer = CustomerManager.GetCustomerById(currentUser.CustomerId ?? 104);
 			List<CreditCard> creditCards = CreditCardManager.GetCreditCardsByCustomer(customer.CustomerId);
 			var list = new SelectList(creditCards, "CreditCardId", "Ccnumber").ToList();
 			ViewBag.Cards = list;

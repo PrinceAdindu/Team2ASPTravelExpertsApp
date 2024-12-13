@@ -1,0 +1,69 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TravelExpertsData
+@using TravelExpertsData.DbManagers
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject TravelExpertsData.DbManagers.CustomerManager CustomerManager
+
+<div class="nav-user-section d-inline-block float-end">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        // User is signed in
+        var user = await UserManager.GetUserAsync(User);
+        int customerId = user?.CustomerId ?? 0;
+        var userName = user?.FullName ?? "Traveller";
+        int userId = user?.CustomerId ?? 0;
+
+        // Retrieve profile image from database
+        var profileImageBytes = await CustomerManager.GetProfileImageByIdAsync(userId);
+        var profileImage = profileImageBytes != null
+        ? $"data:image/png;base64,{Convert.ToBase64String(profileImageBytes)}"
+        : Url.Content("~/images/default-avatar.jpg");
+
+        <div class="dropdown has-children">
+            <!-- Profile Image with Enhanced Border -->
+            <div class="d-flex flex-row align-items-center">   
+                <div class="profile-container">
+                    <img src="@profileImage" alt="Profile" class="profile-img" />
+                </div>
+                <!-- Welcome Message -->
+                <a href="#" class="dropdown-toggle username" data-toggle="dropdown">
+                    <span class="welcome-text">Welcome Back,</span> <span class="user-name">@userName</span>
+                </a>
+            </div>
+            <!-- Dropdown Menu -->
+            <ul class="dropdown-menu animated-dropdown">
+                <li>
+                    <a asp-controller="Customer" asp-action="Details" asp-route-id="@customerId">
+                        <i class="fas fa-user mx-1"></i> My Profile
+                    </a>
+                </li>
+                <li>
+                    <a href="/Account/Logout">
+                        <i class="fa fa-sign-out-alt mx-1"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    }
+    else
+    {
+    // User is not signed in
+        <a href="/Account/Register" class="btn btn-primary">Register</a>
+        <a href="/Account/Login" class="btn btn-secondary">Login</a>
+    }
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdown = document.querySelector(".dropdown");
+
+            dropdown.addEventListener("mouseover", () => {
+                dropdown.querySelector(".dropdown-menu").style.display = "block";
+            });
+
+            dropdown.addEventListener("mouseout", () => {
+                dropdown.querySelector(".dropdown-menu").style.display = "none";
+            });
+    });
+</script>
