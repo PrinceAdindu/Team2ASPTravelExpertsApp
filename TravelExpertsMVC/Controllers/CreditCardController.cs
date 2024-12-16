@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TravelExpertsData;
@@ -11,18 +12,25 @@ namespace TravelExpertsMVC.Controllers
     {
 
 		private CustomerManager CustomerManager;
-		public CreditCardController()
+        private readonly UserManager<User> _userManager;
+
+        public CreditCardController(UserManager<User> userManager)
 		{
-			this.CustomerManager = new CustomerManager();
-		}
+			this.CustomerManager = new CustomerManager(); 
+            this._userManager = userManager;
+
+
+        }
         // GET: CreditCardController
-        
-		public ActionResult AddCard()
+
+        public async Task<ActionResult> AddCard()
         {
             SelectList list = CreateCardTypeList();
             ViewBag.CardTypes = list;
 
-            Customer customer = CustomerManager.GetCustomerById(104);
+            var user = await _userManager.GetUserAsync(User);
+
+            Customer customer = CustomerManager.GetCustomerById(user.CustomerId ?? 0);
 
             CreditCard newCard = new CreditCard();
             newCard.CustomerId = customer.CustomerId;
