@@ -38,12 +38,12 @@ namespace TravelExpertsMVC.Controllers
 		 
 
 		// this method will be commented out when login functionality is implemented
-		public ActionResult Index()
-		{
-			List<Customer> customers = new List<Customer>();
-			customers = CustomerManager.GetCustomers();
-			return View(customers);
-		}
+		//public ActionResult Index()
+		//{
+		//	List<Customer> customers = new List<Customer>();
+		//	customers = CustomerManager.GetCustomers();
+		//	return View(customers);
+		//}
 
 
 		public async Task<ActionResult> Details(int id) /* <----this id should be replaced with customerid from session*/
