@@ -15,18 +15,24 @@
             To update your account click here <a asp-controller="Customer" asp-action="AddBalance" class="btn btn-info">Update your balance !</a>
         </div>
     }
+    <main class="page-content">
+        @foreach (var package in Model)
+        {
+            <!-- Update the background image dynamically -->
+            <div class="card" style="background-image:url('/images/@(package.PackageId).jpg');">
+                <div class="content">
+                    <h2 class="title">@package.PkgName</h2>
+                    <p class="copy">@package.PkgDesc</p>
+                    <p class="copy"><strong>Start Date:</strong> @(package.PkgStartDate.HasValue ? package.PkgStartDate.Value.ToShortDateString() : "N/A")</p>
+                    <p class="copy"><strong>End Date:</strong> @(package.PkgEndDate.HasValue ? package.PkgEndDate.Value.ToShortDateString() : "N/A")</p>
+                    <p class="copy"><strong>Price:</strong> $@package.PkgBasePrice</p>
+                    <a href="@Url.Action("Details", "Booking", new { id = package.PackageId })" class="btn">Book Now</a>
 
-    @foreach (var package in Model)
-    {
-        <div class="card">
-            <div class="content">
-                <h2 class="title">@package.PkgName</h2>
-                <p class="copy">@package.PkgDesc</p>
-                <p class="copy"><strong>Start Date:</strong> @(package.PkgStartDate.HasValue ? package.PkgStartDate.Value.ToShortDateString() : "N/A")</p>
-                <p class="copy"><strong>End Date:</strong> @(package.PkgEndDate.HasValue ? package.PkgEndDate.Value.ToShortDateString() : "N/A")</p>
-                <p class="copy"><strong>Price:</strong> $@package.PkgBasePrice</p>
-                <a href="@Url.Action("Details", "Booking", new { id = package.PackageId })" class="btn">Book Now</a>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </div>
