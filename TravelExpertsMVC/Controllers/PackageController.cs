@@ -4,19 +4,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 using TravelExpertsData;
+using TravelExpertsData.DbManagers;
 
 namespace TravelExpertsMVC.Controllers
 {
     public class PackageController : Controller
     {
 		private TravelExpertsContext _context;
-		private CustomerManager CustomerManager;
+		private TravelExpertsData.CustomerManager CustomerManager;
         private readonly UserManager<User> _userManager;
 
         public PackageController(UserManager<User> userManager)
 		{
 			this._context = new TravelExpertsContext();
-            this.CustomerManager = new CustomerManager();
+            this.CustomerManager = new TravelExpertsData.CustomerManager();
             _userManager = userManager;
         }
         // GET: PackageController
@@ -42,11 +43,14 @@ namespace TravelExpertsMVC.Controllers
         public async Task<ActionResult> Payment(int id)
         {
             Package pkg = PackageManager.GetPackageByID(id)!;
+            int bookingId = (int)TempData["bookingId"];
+            Booking booking = BookingManager.GetBooking(bookingId); 
+
             var currentUser = await _userManager.GetUserAsync(User);
             int customerId = currentUser?.CustomerId ?? 0;
             Customer user = CustomerManager.GetCustomerById(customerId);
 
-            decimal paymentTotal = (decimal)(pkg.PkgBasePrice + pkg.PkgAgencyCommission)!;
+            decimal paymentTotal = (decimal)((pkg.PkgBasePrice * (decimal)booking.TravelerCount) + pkg.PkgAgencyCommission)!;
             decimal custBalance = user.Balance;
 
             ViewBag.PaymentTotal = paymentTotal.ToString("c");

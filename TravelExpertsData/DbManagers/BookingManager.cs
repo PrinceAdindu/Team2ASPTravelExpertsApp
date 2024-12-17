@@ -41,6 +41,16 @@ namespace TravelExpertsData.DbManagers
 
         }
 
+        public static Booking? GetBooking(int bookingId)
+        {
+            using (TravelExpertsContext db = new TravelExpertsContext())
+            {
+                var booking = db.Bookings.FirstOrDefault(b => b.BookingId == bookingId);
+                if (booking != null) return booking;
+                else return null;
+            }
+        }
+
         public BookingDetail? GetBookingDetail(int bookingId) { 
             var bookingDetail = _context.BookingDetails.FirstOrDefault(b=>b.BookingId == bookingId);
             if (bookingDetail != null) return bookingDetail;

@@ -161,10 +161,11 @@ namespace TravelExpertsMVC.Controllers
 			}
 		}
 
-		public ActionResult OrderHistory(int id) /* <----this id should be replaced with customerid from session*/
+		public async Task<ActionResult> OrderHistory(int id	= 0) /* <----this id should be replaced with customerid from session*/
 		{
-			List<BookingsDTO> bookingHistory = new List<BookingsDTO>();
-			bookingHistory = BookingManager.GetBookingSummary(id);
+            var user = await _userManager.GetUserAsync(User);
+            List<BookingsDTO> bookingHistory = new List<BookingsDTO>();
+			bookingHistory = BookingManager.GetBookingSummary(user.CustomerId ?? 0);
 			return View(bookingHistory);
 		}
 

@@ -397,8 +397,8 @@
         });
     });
 
-    let submitBtn = document.getElementById("moveToProfileBtn");
-    console.log("yttuwiygywguw",document.getElementById("userDetails"), document.getElementById("moveToProfileBtn"), submitBtn)
+    let moveToProfileBtn = document.getElementById("moveToProfileBtn");
+    console.log("yttuwiygywguw", document.getElementById("userDetails"), document.getElementById("moveToProfileBtn"), moveToProfileBtn)
 
     const allInputs = document.getElementsByTagName("input");
 
@@ -412,13 +412,13 @@
             if (!document.getElementById("headingThree").getElementsByTagName("button")[0].classList.contains("disabled") &&
                 !document.getElementById("headingTwo").getElementsByTagName("button")[0].classList.contains("disabled") &&
                 completeValidation.test(passwordField.value) && cnfrmPasswordField.value == passwordField.value) {
-                submitBtn.classList.remove("disabled");
+                moveToProfileBtn.classList.remove("disabled");
             }
         });
     }
     
 
-    submitBtn.addEventListener("click", function (e) {
+    moveToProfileBtn.addEventListener("click", function (e) {
         e.preventDefault();
         const loader = document.getElementById("loader");
         loader.style.display = "flex";

@@ -106,10 +106,17 @@
 
                                 <div class="form-group row col-md-6 p-3">
                                     <label asp-for="AgentId" class="col-form-label">Select your Agent (optional)</label>
-                                    <se@* lect asp-items="@(new SelectList(Model?.Agents, "AgentId", "AgentFirstName", "AgentLastName"))" asp-for="AgentId" class="form-control" asp-items="ViewBag.AgentId">
-                                          <option value=""></option>
-                                          </selec *@t>
-                                        <select><option>1</option><option>2</option></select>
+                                    <select asp-for="AgentId" class="form-control">
+                                          <option value="">--Select Agent--</option>
+                                            @if (Model?.Agents != null)
+                                            {
+                                                @foreach (var agent in Model.Agents)
+                                                {
+                                                    <option value="@agent.AgentId">@($"{agent.AgtFirstName} {agent.AgtLastName}")</option>
+                                                }
+                                            }
+                                          </select>
+               
                                 </div>
 
                                 <div class="form-group row col-md-4 p-3">
@@ -173,7 +180,7 @@
                 </div>
                 
                 <div class="form-group col-md-12 mt-3 d-flex disabled">
-                    <button id="moveToProfileBtn" class="btn btn-primary mx-auto">Just a step away from endless adventure .... <i class="fa fa-globe w-auto"></i></button>
+                    <a id="moveToProfileBtn" class="btn btn-primary disabled mx-auto">Just a step away from endless adventure .... <i class="fa fa-globe w-auto"></i></a>
                 </div>
 
                 <div id="imageUploadSection" class="d-none text-center mt-5 fade-in">
@@ -199,7 +206,7 @@
     <div class="spinner"></div>
 </div>
 
-<script src="~/js/register.js"></script>
 @section Scripts {
+    <script src="~/js/register.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
