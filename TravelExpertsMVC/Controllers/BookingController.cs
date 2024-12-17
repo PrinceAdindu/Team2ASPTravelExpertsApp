@@ -4,6 +4,7 @@ using System.Linq;
 using TravelExpertsData.ViewModel;
 using TravelExpertsData.DbManagers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace TravelExperts.Controllers
 {
@@ -11,10 +12,12 @@ namespace TravelExperts.Controllers
     {
         private readonly TravelExpertsContext _context;
         private readonly BookingManager _bookingManager;
-        public BookingController(TravelExpertsContext context)
+        private readonly UserManager<User> _userManager;
+        public BookingController(TravelExpertsContext context, UserManager<User> userManager)
         {
             _context = context;
             _bookingManager = new BookingManager(context);
+            _userManager = userManager;
         }
 
         // GET: Booking/Details/{id}
@@ -55,6 +58,7 @@ namespace TravelExperts.Controllers
             model.TripTypes = _context.TripTypes.ToList();
             model.Classes = _context.Classes.ToList();
             model.PackageImage = "/images/package-1";
+            var user = await _userManager.GetUserAsync(User);
             ModelState.Remove("BookingNo");
             if (ModelState.IsValid)
             {
@@ -63,7 +67,7 @@ namespace TravelExperts.Controllers
                     BookingDate = model.BookingDate,
                     BookingNo = GenerateBookingNumber(model.BookingDate.ToString()),
                     TravelerCount = model.NumberOfTravellers,
-                    CustomerId = model.CustomerId,
+                    CustomerId = user.CustomerId,
                     TripTypeId = model.TripTypeId,
                     PackageId = model.PackageId,
                 };
@@ -82,7 +86,7 @@ namespace TravelExperts.Controllers
                     AgencyCommission = model.AgencyCommission,
                     ProductSupplierId = 44
                 };
-
+                TempData["bookingId"] = booking.BookingId;
                 await _bookingManager.AddBookingDetailsAsync(bookingDetail);
 
                 return RedirectToAction("Payment", "Package", new { id = model.PackageId });

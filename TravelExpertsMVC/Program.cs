@@ -13,6 +13,7 @@ builder.Services.AddDbContext<TravelExpertsContext>(options =>
 ));
 
 builder.Services.AddScoped<TravelExpertsData.DbManagers.CustomerManager>();
+builder.Services.AddScoped<AgentsManager>();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {

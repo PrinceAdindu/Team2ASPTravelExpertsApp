@@ -12,14 +12,16 @@ namespace TravelExpertsMVC.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private AgentsManager _agentsManager;
         private TravelExpertsData.DbManagers.CustomerManager _customerManager;
         private TravelExpertsContext _context;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, TravelExpertsContext context)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, TravelExpertsContext context, AgentsManager agentsManager)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             _context = context;
+            _agentsManager = new AgentsManager(_context);
             _customerManager = new TravelExpertsData.DbManagers.CustomerManager(_context);
         }
         [HttpGet]
@@ -81,7 +83,23 @@ namespace TravelExpertsMVC.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
-            return View();
+            var agents = _agentsManager.GetAgents()
+        .Select(a => new
+        {
+            a.AgentId,
+            FullName = $"{a.AgtFirstName} {a.AgtLastName}" // Combine first and last name
+        }).ToList();
+
+            RegisterViewModel registerViewModel = new RegisterViewModel()
+            {
+                Agents = agents.Select(a => new Agent
+                {
+                    AgentId = a.AgentId,
+                    AgtFirstName = a.FullName
+                }).ToList()
+            };
+
+            return View(registerViewModel);
         }
 
 
