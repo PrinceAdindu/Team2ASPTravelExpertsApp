@@ -25,14 +25,14 @@ namespace TravelExpertsData
         [Display(Name = "Flight Class")]
         public string ClassName { get; set; }
 
-        [Display(Name = "Region")]
-        public string RegionName { get; set; }
+        //[Display(Name = "Region")]
+        //public string? RegionName { get; set; }
 
-        [Display(Name = "Fee Amount")]
-        public decimal FeeAmount { get; set; }
+        //[Display(Name = "Fee Amount")]
+        //public decimal? FeeAmount { get; set; }
 
-        [Display(Name = "Fee Details")]
-        public string FeeName { get; set; }
+        //[Display(Name = "Fee Details")]
+        //public string? FeeName { get; set; }
 
         [Display(Name ="Base Price")]
         public decimal? BasePrice { get; set; }

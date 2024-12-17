@@ -58,7 +58,7 @@ namespace TravelExpertsData.DbManagers
                     db.Bookings.Join(                   /*Bookings*/
                         db.BookingDetails,              /*BookingDetails*/
                         b => b.BookingId,
-                        bd => bd.BookingDetailId,
+                        bd => bd.BookingId,
                         (b, bd) => new { b, bd }).Join(
                         db.TripTypes,                   /*TripTypes*/
                         bb => bb.b.TripTypeId,
@@ -67,32 +67,22 @@ namespace TravelExpertsData.DbManagers
                         db.Classes,                     /*Classes*/
                         bbd => bbd.bb.bd.ClassId,
                         c => c.ClassId,
-                        (bbd, c) => new { bbd, c }).Join(
-                        db.Regions,                     /*Regions*/
-                        bbbd => bbbd.bbd.bb.bd.RegionId,
-                        r => r.RegionId,
-                        (bbbd, r) => new { bbbd, r }).Join(
-                        db.Fees,                        /*Fees*/
-                        d => d.bbbd.bbd.bb.bd.FeeId,
-                        f => f.FeeId,
-                        (d, f) => new { d, f })
+                        (bbd, c) => new { bbd, c })
 
 
                         .Where(
-                         cust => cust.d.bbbd.bbd.bb.b.CustomerId == customerId)   /*where clause to specify which customer*/
+                         cust => cust.bbd.bb.b.CustomerId == customerId)   /*where clause to specify which customer*/
                         .Select(                                                /*select clause to fetch specific columns*/
                         book => new BookingsDTO
                         {
-                            BookingDescription = book.d.bbbd.bbd.bb.bd.Description,
-                            BookingDestination = book.d.bbbd.bbd.bb.bd.Destination,
-                            BookingNo = book.d.bbbd.bbd.bb.b.BookingNo,
-                            TripTypeName = book.d.bbbd.bbd.tt.Ttname,
-                            ClassName = book.d.bbbd.c.ClassName,
-                            RegionName = book.d.r.RegionName,
-                            FeeName = book.f.FeeName,
-                            FeeAmount = book.f.FeeAmt,
-                            BasePrice = book.d.bbbd.bbd.bb.bd.BasePrice,
-                            AgencyCommission = book.d.bbbd.bbd.bb.bd.AgencyCommission
+                            BookingDescription = book.bbd.bb.bd.Description,
+                            BookingDestination = book.bbd.bb.bd.Destination,
+                            BookingNo = book.bbd.bb.b.BookingNo,
+                            TripTypeName = book.bbd.tt.Ttname,
+                            ClassName = book.c.ClassName,
+                            
+                            BasePrice = book.bbd.bb.bd.BasePrice,
+                            AgencyCommission = book.bbd.bb.bd.AgencyCommission
 
                         }).ToList();
                 return bookingSummary;

@@ -28,22 +28,22 @@
                 <th>
                     @Html.DisplayNameFor(model => model.ClassName)
                 </th>
-                <th>
+                @* <th>
                     @Html.DisplayNameFor(model => model.RegionName)
-                </th>
+                </th> *@
                 <th>
                     @Html.DisplayNameFor(model => model.BasePrice)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.AgencyCommission)
                 </th>
-                <th>
+                @* <th>
                     @Html.DisplayNameFor(model => model.FeeAmount)
-                </th>
+                </th> *@
 
-                <th>
+                @* <th>
                     @Html.DisplayNameFor(model => model.FeeName)
-                </th>
+                </th> *@
 
                 <th>Total Cost</th>
             </tr>
@@ -51,7 +51,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                decimal? price = item.FeeAmount + item.BasePrice + item.AgencyCommission;
+                decimal? price = @* item.FeeAmount *@ + item.BasePrice + item.AgencyCommission;
                 ViewBag.Price = price;
                 <tr>
                     <td>
@@ -69,21 +69,21 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.ClassName)
                     </td>
-                    <td>
+                    @* <td>
                         @Html.DisplayFor(modelItem => item.RegionName)
-                    </td>
+                    </td> *@
                     <td>
                         @Html.DisplayFor(modelItem => item.BasePrice)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.AgencyCommission)
                     </td>
-                    <td>
+                    @* <td>
                         @Html.DisplayFor(modelItem => item.FeeAmount)
-                    </td>
-                    <td>
+                    </td> *@
+                    @* <td>
                         @Html.DisplayFor(modelItem => item.FeeName)
-                    </td>
+                    </td> *@
 
                     <td>
                         @ViewBag.Price.ToString("c")
@@ -100,7 +100,7 @@
         foreach (var item in Model)
         {
 
-            decimal? price = item.FeeAmount + item.BasePrice + item.AgencyCommission;
+            decimal? price = /* item.FeeAmount + */ item.BasePrice + item.AgencyCommission;
             totalAmount += price;
 
 
