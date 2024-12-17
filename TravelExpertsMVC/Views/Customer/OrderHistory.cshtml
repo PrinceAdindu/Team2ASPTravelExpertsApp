@@ -4,110 +4,114 @@
     ViewData["Title"] = "Order History";
 }
 
-<h1>Order History</h1>
+<link href="~/css/customer.css" rel="stylesheet" />
+<div class="customer-container">
+    <h1>Order History</h1>
 
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingDestination)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingNo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TripTypeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClassName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RegionName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BasePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AgencyCommission)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FeeAmount)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.FeeName)
-            </th>
-
-            <th>Total Cost</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            decimal? price = item.FeeAmount + item.BasePrice + item.AgencyCommission;
-            ViewBag.Price = price;
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookingDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookingDestination)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookingNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TripTypeName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClassName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RegionName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BasePrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AgencyCommission)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FeeAmount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FeeName)
-                </td>
-                
-                <td>
-                    @ViewBag.Price.ToString("c")
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingDestination)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TripTypeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RegionName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BasePrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AgencyCommission)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FeeAmount)
+                </th>
 
+                <th>
+                    @Html.DisplayNameFor(model => model.FeeName)
+                </th>
+
+                <th>Total Cost</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                decimal? price = item.FeeAmount + item.BasePrice + item.AgencyCommission;
+                ViewBag.Price = price;
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingDestination)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TripTypeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClassName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegionName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BasePrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AgencyCommission)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FeeAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FeeName)
+                    </td>
+
+                    <td>
+                        @ViewBag.Price.ToString("c")
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+    @{
+        decimal? totalAmount = 0;
+        foreach (var item in Model)
+        {
+
+            decimal? price = item.FeeAmount + item.BasePrice + item.AgencyCommission;
+            totalAmount += price;
+
 
         }
-    </tbody>
-</table>
 
-@{
-    decimal? totalAmount = 0;
-    foreach (var item in Model)
-    {
-
-        decimal? price = item.FeeAmount + item.BasePrice + item.AgencyCommission;
-        totalAmount += price;
+        ViewBag.TotalAmount = totalAmount;
 
 
     }
 
-    ViewBag.TotalAmount = totalAmount;
+    <p>Total Balance: @ViewBag.TotalAmount.ToString("c")</p>
 
-    
-}
 
-<p>Total Balance: @ViewBag.TotalAmount.ToString("c")</p>
-
+</div>
