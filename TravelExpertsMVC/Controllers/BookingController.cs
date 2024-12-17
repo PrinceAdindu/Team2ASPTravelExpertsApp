@@ -38,7 +38,7 @@ namespace TravelExperts.Controllers
                 PkgStartDate = package.PkgStartDate!,
                 PkgEndDate = package.PkgEndDate!,
                 PkgBasePrice = package.PkgBasePrice,
-                PackageImage = "/images/" + package.PackageId + ".jpg", // Replace with actual image path logic
+                PackageImage = "/images/" + package.PackageId + ".jpg", // This selects the appropriate image for each package
                 TripTypes = tripTypes,
                 Classes = classes,
                 AgencyCommission = (decimal)package.PkgAgencyCommission!,
